@@ -1,28 +1,42 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package dbo;
 
-import java.sql.Date;
-
+/**
+ *
+ * @author user
+ */
 public class Users {
     private int UserID;
     private String FirstName;
     private String LastName;
     private String Email;
     private String Phone;
-    private String PasswordHash;
-    private Date CreatedAt;
-
-    public Users(int UserID, String PasswordHash, Date CreatedAt) {
-        this.UserID = UserID;
-        this.PasswordHash = PasswordHash;
-        this.CreatedAt = CreatedAt;
-    }
+    private String Address;
+    private int Role;
 
     public Users() {
     }
 
+    public Users(int UserID, String FirstName, String LastName, String Email, String Phone, String Address, int Role) {
+        this.UserID = UserID;
+        this.FirstName = FirstName;
+        this.LastName = LastName;
+        this.Email = Email;
+        this.Phone = Phone;
+        this.Address = Address;
+        this.Role = Role;
+    }
+
     public int getUserID() {
         return UserID;
+    }
+
+    public void setUserID(int UserID) {
+        this.UserID = UserID;
     }
 
     public String getFirstName() {
@@ -37,8 +51,8 @@ public class Users {
         return LastName;
     }
 
-    public void setLastName(String LastName) {
-        this.LastName = LastName;
+    public void setLastName(String LastNam) {
+        this.LastName = LastNam;
     }
 
     public String getEmail() {
@@ -57,20 +71,20 @@ public class Users {
         this.Phone = Phone;
     }
 
-    public String getPasswordHash() {
-        return PasswordHash;
+    public String getAddress() {
+        return Address;
     }
 
-    public void setPasswordHash(String PasswordHash) {
-        this.PasswordHash = PasswordHash;
+    public void setAddress(String Address) {
+        this.Address = Address;
     }
 
-    public Date getCreatedAt() {
-        return CreatedAt;
+    public int getRole() {
+        return Role;
     }
 
-    public void setCreatedAt(Date CreatedAt) {
-        this.CreatedAt = CreatedAt;
+    public void setRole(int Role) {
+        this.Role = Role;
     }
     
     

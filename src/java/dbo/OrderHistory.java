@@ -12,27 +12,27 @@ import java.sql.Date;
  * @author user
  */
 public class OrderHistory {
-    private int HistoryID;
+    private int OrderHistoryID;
     private int OrderID;
     private int Status;
-    private Date ChangedAt;
+    private Date CompletionDate;
 
     public OrderHistory() {
     }
 
-    public OrderHistory(int HistoryID, int OrderID, int Status, Date ChangedAt) {
-        this.HistoryID = HistoryID;
+    public OrderHistory(int OrderHistoryID, int OrderID, int Status, Date CompletionDate) {
+        this.OrderHistoryID = OrderHistoryID;
         this.OrderID = OrderID;
         this.Status = Status;
-        this.ChangedAt = ChangedAt;
+        this.CompletionDate = CompletionDate;
     }
 
-    public int getHistoryID() {
-        return HistoryID;
+    public int getOrderHistoryID() {
+        return OrderHistoryID;
     }
 
-    public void setHistoryID(int HistoryID) {
-        this.HistoryID = HistoryID;
+    public void setOrderHistoryID(int OrderHistoryID) {
+        this.OrderHistoryID = OrderHistoryID;
     }
 
     public int getOrderID() {
@@ -51,12 +51,12 @@ public class OrderHistory {
         this.Status = Status;
     }
 
-    public Date getChangedAt() {
-        return ChangedAt;
+    public Date getCompletionDate() {
+        return CompletionDate;
     }
 
-    public void setChangedAt(Date ChangedAt) {
-        this.ChangedAt = ChangedAt;
+    public void setCompletionDate(Date CompletionDate) {
+        this.CompletionDate = CompletionDate;
     }
     
 }
