@@ -17,18 +17,37 @@ public class Users {
     private String Phone;
     private String Address;
     private int Role;
+    private String Password;
 
     public Users() {
     }
 
-    public Users(int UserID, String FirstName, String LastName, String Email, String Phone, String Address, int Role) {
+    public Users(int UserID, String LastName, String Email, String Phone, String Address, int Role, String Password) {
         this.UserID = UserID;
-        this.FirstName = FirstName;
         this.LastName = LastName;
         this.Email = Email;
         this.Phone = Phone;
         this.Address = Address;
         this.Role = Role;
+        this.Password = Password;
+    }
+
+    public Users(int id, String firstname, String lastname, String email, String phone, String address, int role) {
+        this.UserID = id;
+        this.FirstName = firstname;
+        this.LastName = lastname;
+        this.Email = email;
+        this.Phone = phone;
+        this.Address = address;
+        this.Role = role;
+    }
+
+    public String getPassword() {
+        return Password;
+    }
+
+    public void setPassword(String Password) {
+        this.Password = Password;
     }
 
     public int getUserID() {

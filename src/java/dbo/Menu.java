@@ -17,6 +17,12 @@ public class Menu {
     public Menu() {
     }
 
+    public Menu(int MenuID, String MenuName, String MenuDescription) {
+        this.MenuID = MenuID;
+        this.MenuName = MenuName;
+        this.MenuDescription = MenuDescription;
+    }
+
     public int getMenuID() {
         return MenuID;
     }

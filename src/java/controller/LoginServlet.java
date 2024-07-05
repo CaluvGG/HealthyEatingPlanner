@@ -9,20 +9,21 @@ import dao.UserDAO;
 import dbo.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author user
+ * @author MyPC
  */
-public class GetUserServlet extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -34,10 +35,22 @@ public class GetUserServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            UserDAO d=new UserDAO();
-            ArrayList<Users> list=d.getAllUsers();
-            request.setAttribute("userslist", list);
-            request.getRequestDispatcher("").forward(request, response);
+            String acc_name = request.getParameter("text_user");
+            String password = request.getParameter("text_pass");
+            if(acc_name!=null && password !=null){
+                UserDAO dao = new UserDAO();
+                Users acc = dao.getUser(acc_name, password);
+                if (acc != null) {
+                    HttpSession session = request.getSession();
+                    session.setAttribute("Login_user", acc);
+                    request.getRequestDispatcher("Home.jsp").forward(request, response);
+                }
+                else {
+                    String msg = "Invalid User";
+                    request.setAttribute("ERROR",msg );
+                    request.getRequestDispatcher("LoginForm.jsp").forward(request, response);
+                }   
+            }
         }
     }
 

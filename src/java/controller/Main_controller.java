@@ -5,11 +5,8 @@
  */
 package controller;
 
-import dao.UserDAO;
-import dbo.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,12 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author user
+ * @author MyPC
  */
-public class GetUserServlet extends HttpServlet {
+public class Main_controller extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -34,10 +32,22 @@ public class GetUserServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            UserDAO d=new UserDAO();
-            ArrayList<Users> list=d.getAllUsers();
-            request.setAttribute("userslist", list);
-            request.getRequestDispatcher("").forward(request, response);
+            
+        // Lấy thông tin vai trò từ request
+            String userRole = (String) request.getAttribute("ROLE");
+        // Xử lý dựa trên vai trò của người dùng
+            if (userRole != null) {
+                if (userRole.equals("admin")) {
+                    // Xử lý khi người dùng có vai trò là admin
+                    
+                } else if (userRole.equals("user")) {
+                    // Xử lý khi người dùng có vai trò là user
+                    
+                } else {
+                    // Xử lý khi không rõ vai trò của người dùng
+                    response.getWriter().println("Hello!");
+                }
+            } 
         }
     }
 
