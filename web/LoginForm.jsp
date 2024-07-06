@@ -14,35 +14,26 @@
         <title>LoginForm</title>
     </head>
     <body>
-
-
-        <div class="content">
-            <header>Login Form</header>
-            <form action="Main_controller" method="post">
-
+        
+        <div class="container">
+            <form action="login" method="post" class="Login_card">
                 <div>
                     <input type="text" name="text_user" required placeholder="Email or Phone">
                 </div>
                 <div>
-                    <input type="text" name="text_pass" class="pass-key" required placeholder="Password">
-                    <span class="show">SHOW</span>
+                    <input type="password" name="text_pass" class="pass-key" required placeholder="Password">
+                    <span class="show" onclick="togglePassword()">
+                        <img src="icons/crossed-eye.png" alt="SHOW">
+                    </span>
                 </div>
-
                 <div class="pass">
                     <a href="#">Forgot Password?</a>
                 </div>
-
                 <div class="field">
                     <input type="submit" value="LOGIN">
                 </div>
             </form>
-
-            <div class="signup">
-                Don't have account?
-                <a href="#">Signup Now</a>
-            </div>
         </div>
-
 
     </body>
 </html>
