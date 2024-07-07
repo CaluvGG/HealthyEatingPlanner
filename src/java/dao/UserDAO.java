@@ -69,7 +69,7 @@ public class UserDAO {
                 pst.setString(3, password);
                 ResultSet rst = pst.executeQuery();
                 if(rst!=null && rst.next()){
-                    if(acc_name.contains("%@%")){
+                    if(acc_name.contains("@")){
                         user = new Users(
                             rst.getInt("UserID"), 
                             rst.getString("LastName"),
@@ -102,5 +102,32 @@ public class UserDAO {
             }
         }
         return user;
+    }
+    
+    public Users addUser(){
+        Users acc= null;
+        Connection cn = null;
+        try {
+            cn =DBUtil.makeConnection();
+            if(cn!=null){
+                String sql ="";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setString(0, sql);
+                /*ddd*/
+                ResultSet rst = pst.executeQuery();
+                if(rst!=null && rst.next()){
+                    
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            try{
+                if(cn!=null) cn.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return acc;
     }
 }

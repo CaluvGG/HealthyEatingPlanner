@@ -141,3 +141,82 @@ body {
 .dropdow_form:hover .opts {
     display: block;
 }
+
+/*Login && Register Cards*/
+.Card_container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(90, 55, 55, 0.418);
+    width: max-content;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.form_card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.box_text {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.box_text input {
+    width: 20.4em;
+    padding: 10px 40px 10px 10px;
+    border: 2px solid #8f8686;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.box_text input:focus {
+    border-color: rgba(102, 51, 153, 0.753);
+    box-shadow: 0 0 5px rgba(102, 51, 153, 0.753);
+}
+
+.box_text input#_1st,
+.box_text input#_2nd{
+    width: 8em;
+}
+
+.show {
+    position: absolute;
+    right: 0.7em;
+    top: 0.65em;
+    /* hiển thị click */
+    cursor: pointer;
+}
+
+.show img {
+    width: 1.1em;
+    height: 1.1em;
+}
+
+.field {
+    margin-top: 20px;
+    width: 9em;
+}
+
+.field input{
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: rgba(102, 51, 153, 0.753);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.field:hover {
+    border-color: #c96e6e;
+    box-shadow: 0 0 8px #c96e6e;
+    transition: border-color 0.1s, box-shadow 0.1s;
+}

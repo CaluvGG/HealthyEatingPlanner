@@ -56,7 +56,7 @@
                                     <li class="logged-in-only"><a href="#">Order History</a></li>
                                     <!-- Logged out user options -->
                                     <li class="logged-out-only"><a href="LoginForm.jsp">Login</a></li>
-                                    <li class="logged-out-only"><a href="#">Register</a></li>
+                                    <li class="logged-out-only"><a href="">Register</a></li>
                                 </ul>
                             </div>
                         </div>
