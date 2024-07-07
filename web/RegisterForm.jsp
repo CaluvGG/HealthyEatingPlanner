@@ -28,6 +28,14 @@
                 <div class="box_text">
                     <input type="text" name="text_email" required placeholder="Email">
                 </div>
+                
+                <div class="box_text">
+                    <input type="text" name="text_phone" required placeholder="Phone number">
+                </div>
+                
+                <div class="box_text">
+                    <input type="text" name="text_address" required placeholder="Address">
+                </div>
 
                 <div class="box_text">
                     <input type="password" id="password" class="pass_key" required placeholder="Password">

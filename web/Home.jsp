@@ -4,6 +4,7 @@
     Author     : MyPC
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,6 +15,9 @@
         <script><%@include file="WEB-INF/js/js.js" %></script>
     </head>
     <body>
+        <!--Check is logged in ?-->
+        <c:set var="IsLogged" value="${sessionScope.Login_user}" />
+        <!--navigate bar-->
         <div class="nav">
             <nav class="navbar">
 
@@ -50,13 +54,22 @@
                             </a>
                             <div class="opts">
                                 <ul class="opts_dt">
-                                    <!-- Logged in user options -->
-                                    <li class="logged-in-only"><a href="#">Account</a></li>
-                                    <li class="logged-in-only"><a href="#">Settings</a></li>
-                                    <li class="logged-in-only"><a href="#">Order History</a></li>
-                                    <!-- Logged out user options -->
-                                    <li class="logged-out-only"><a href="LoginForm.jsp">Login</a></li>
-                                    <li class="logged-out-only"><a href="">Register</a></li>
+                                    <c:choose>
+                                        <c:when test="${not empty IsLogged}">
+                                            <!-- Logged in user options -->
+                                            <li class="logged-in-only"><a href="#">Account</a></li>
+                                            <li class="logged-in-only"><a href="#">Settings</a></li>
+                                            <li class="logged-in-only"><a href="#">Order History</a></li>
+                                            <li class="logged-in-only"><a href="MainController?action=logout">Log Out</a></li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <!-- Logged out user options -->
+                                            <li class="logged-out-only"><a href="MainController?action=login" values="login">
+                                                    Login</a></li>
+                                            <li class="logged-out-only"><a href="MainController?action=register">
+                                                    Register</a></li>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </ul>
                             </div>
                         </div>
@@ -66,6 +79,6 @@
         </div>
 
 
-        
+
     </body>
 </html>

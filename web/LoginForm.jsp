@@ -3,6 +3,7 @@
     Created on : Jul 5, 2024, 4:18:37 PM
     Author     : MyPC
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -30,6 +31,13 @@
                         <img src="icons/eye.png" alt="SHOW">
                     </span>
                 </div>
+                <c:set var = "msg" scope = "request" value = "${requestScope.ERROR}"/> <!--not request.getAttribute('ERROR'-->
+                <c:if test="${not empty msg}">
+                    <div style="color: red;position: absolute;bottom: 4.3em;" id="erro_msg">
+                        ${msg}
+                    </div>
+                    <c:remove var="ERROR" scope="request" />
+                </c:if>
 
                 <div class="field">
                     <input type="submit" value="LOGIN">
