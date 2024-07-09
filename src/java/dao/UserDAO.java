@@ -130,4 +130,42 @@ public class UserDAO {
         }
         return acc;
     }
+
+    public Users getUser(int userID) {
+        Users user=null;
+        Connection cn=null;
+        try{
+            cn=DBUtil.makeConnection();
+            if(cn!=null){
+                String sql = "SELECT [UserID],[FirstName],[LastName],[Email],[Phone],[Address],[Role],[Password]\n"
+                        + "FROM [dbo].[Users]\n"
+                        + "WHERE [UserID]=?";
+                PreparedStatement pst=cn.prepareStatement(sql);
+                pst.setInt(1, userID);
+                ResultSet rs=pst.executeQuery(sql);
+                if(rs!=null){
+                    while(rs.next()){
+                        int id=rs.getInt("UserID");
+                        String fname=rs.getString("FirstName");
+                        String lname=rs.getString("LastName");
+                        String email=rs.getString("Email");
+                        String phone=rs.getString("Phone");
+                        String address=rs.getString("Address");
+                        int role=rs.getInt("Role");
+                        String pass=rs.getString("Password");
+                        user=new Users(userID, fname, lname, email, phone, address, role, pass);
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if(cn!=null) cn.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return user;
+    }
 }
