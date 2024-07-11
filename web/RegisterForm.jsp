@@ -15,7 +15,7 @@
     </head>
     <body>
         <div class="Card_container">
-            <form action="MainController" method="post" class="form_card" id="Reg_form">
+            <form action="MainController?action=register" method="post" class="form_card" id="Reg_form">
                 <h1>Register</h1>
                 <!--gửi kiểu hành động-->
                 <input type="hidden" name="action" value="register">
@@ -28,14 +28,33 @@
                 <div class="box_text">
                     <input type="text" name="text_email" required placeholder="Email">
                 </div>
-                
+
                 <div class="box_text">
                     <input type="text" name="text_phone" required placeholder="Phone number">
                 </div>
-                
+
+                <!--City and District dropdowns-->
                 <div class="box_text">
-                    <input type="text" name="text_address" required placeholder="Address">
+                    <select name="text_city" id="citySelect" required onchange="updateDistrictOptions()">
+                        <option value="" disabled selected>Select your city</option>
+                        <option value="Ho Chi Minh">Ho Chi Minh</option>
+                        <option value="Hanoi">Hanoi</option>
+                        <option value="Da Nang">Da Nang</option>
+                        <option value="Nha Trang">Nha Trang</option>
+                        <option value="Can Tho">Can Tho</option>
+                    </select>
+                    <select name="text_district" id="districtSelect" required>
+                        <option value="" disabled selected>Select your district</option>
+                        <!-- District options will be populated based on city selection -->
+                    </select>
                 </div>
+
+                <div class="box_text">
+                    <input type="text" name="text_address" required placeholder="Address details">
+                </div>
+
+                <!--Set role for use-->
+                <input type="hidden" name="text_role" value="1" /> 
 
                 <div class="box_text">
                     <input type="password" id="password" class="pass_key" required placeholder="Password">
@@ -44,10 +63,17 @@
                     </span>
                 </div>
                 <div class="box_text">
-                    <input type="password" id="confirmPassword" placeholder="Confirm Password">
+                    <input type="password" id="confirmPassword" name="text_password" placeholder="Confirm Password">
                 </div>
 
                 <div id="passwordError" style="color: red;display: none;"></div> <!-- Thông báo lỗi -->
+
+                <c:if test="${not empty requestScope.DUBLICATE}">
+                    <div style="color: red; position: absolute; bottom: 4.3em;left: 7.5em;" id="erro_msg">
+                        ${requestScope.DUBLICATE}
+                    </div>
+                    <c:remove var="DUBLICATE" scope="request"/>
+                </c:if>
 
                 <div class="field">
                     <input type="submit" value="REGISTER">
