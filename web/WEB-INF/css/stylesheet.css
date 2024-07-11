@@ -109,13 +109,15 @@ body {
 .opts {
     display: none;
     position: absolute;
-    top: 100%;
-    /* Position the dropdown below the user icon */
+    top: calc(100% + 1px); /* Adjusted to be a bit higher */
     right: 0;
-    background-color: antiquewhite;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 999;
-    /* Ensure dropdown is above other elements */
+    border-radius: 4px;
+    min-width: 120px; /* Adjust width as needed */
+    overflow: hidden;
+    transition: all 0.3s ease; /* Smoother transition */
 }
 
 .opts ul {
@@ -125,18 +127,22 @@ body {
 }
 
 .opts li {
-    padding: 8px 16px;
+    padding: 10px 3px; /* Increase padding for better touch responsiveness */
+    transition: background-color 0.3s ease; /* Smooth background color transition */
 }
 
 .opts li a {
-    color: black;
+    color: #333333;
     text-decoration: none;
+    width: 90%;
+    text-align: center;
     display: block;
+    transition: color 0.3s ease; /* Smooth text color transition */
 }
 
 .opts li a:hover {
-    background-color: rgba(102, 51, 153, 0.753);
-    color: white;
+    background-color: #f0f0f0; /* Light gray background on hover */
+    color: #663399; /* Purple text color on hover */
 }
 
 .dropdow_form:hover .opts {
