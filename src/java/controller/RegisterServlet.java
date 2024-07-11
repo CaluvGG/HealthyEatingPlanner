@@ -5,6 +5,8 @@
  */
 package controller;
 
+import dao.UserDAO;
+import dbo.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -32,7 +34,33 @@ public class RegisterServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+            String fname_user = request.getParameter("text_firstname");
+            String lname_user = request.getParameter("text_lastname");
+            String email_user = request.getParameter("text_email");
+            String phone_user = request.getParameter("text_phone");
+            /*for shipping*/
+            String city_user = request.getParameter("text_city");
+            String district_user = request.getParameter("text_district");
+
+            String address_user = request.getParameter("text_address");
+            String role_user = request.getParameter("text_role");
+            String pass_user = request.getParameter("text_password");
+
+            UserDAO d = new UserDAO();
+            Users acc = d.getUserEmail(email_user);
+            if (acc == null) {
+                int result = d.addUser(fname_user, lname_user, email_user, phone_user, address_user, Integer.parseInt(role_user), pass_user);
+                if (result > 0) {
+                    request.setAttribute("Succed_regis", "Regist successfully");
+                    request.getRequestDispatcher("Home.jsp").forward(request, response);
+                } else {
+                    response.sendRedirect("accessDenied.html");
+                }
+            } else {
+                String msg = "Duplicate Emails";
+                request.setAttribute("DUBLICATE", msg);
+                request.getRequestDispatcher("RegisterForm.jsp").forward(request, response);
+            }
         }
     }
 
