@@ -37,7 +37,7 @@ public class GetUserServlet extends HttpServlet {
             UserDAO d=new UserDAO();
             ArrayList<Users> list=d.getAllUsers();
             request.setAttribute("userslist", list);
-            request.getRequestDispatcher("").forward(request, response);
+            request.getRequestDispatcher("UserView").forward(request, response);
         }
     }
 
