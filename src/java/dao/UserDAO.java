@@ -187,7 +187,7 @@ public class UserDAO {
                         String address=rs.getString("Address");
                         int role=rs.getInt("Role");
                         String pass=rs.getString("Password");
-                        user=new Users(userID, fname, lname, email, phone, address, role, pass);
+                        user=new Users(userID, fname, lname, email, phone, address, role);
                     }
                 }
             }
