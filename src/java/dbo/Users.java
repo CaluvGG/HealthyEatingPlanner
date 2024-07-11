@@ -22,9 +22,8 @@ public class Users {
     public Users() {
     }
 
-    public Users(int UserID, String FirstName, String LastName, String Email, String Phone, String Address, int Role, String Password) {
+    public Users(int UserID, String LastName, String Email, String Phone, String Address, int Role, String Password) {
         this.UserID = UserID;
-        this.FirstName = FirstName;
         this.LastName = LastName;
         this.Email = Email;
         this.Phone = Phone;
@@ -32,8 +31,6 @@ public class Users {
         this.Role = Role;
         this.Password = Password;
     }
-
-    
 
     public Users(int id, String firstname, String lastname, String email, String phone, String address, int role) {
         this.UserID = id;
