@@ -10,12 +10,9 @@ document.addEventListener("DOMContentLoaded", function () {
         opts.classList.remove('active');
     });
 
-
-
 });
 
 //Toggle pass
-
 function togglePassword() {
     const password = document.querySelector('.pass_key');
     const showButton = document.querySelector('.show img');
@@ -27,6 +24,7 @@ function togglePassword() {
         showButton.src = 'icons/eye.png';
     }
 }
+
 // Kiểm tra sự khớp nhau của mật khẩu và mật khẩu xác nhận
 //Confirm pass
 document.addEventListener("DOMContentLoaded", function () {
