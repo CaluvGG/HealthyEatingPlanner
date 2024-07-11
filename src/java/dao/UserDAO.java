@@ -104,19 +104,55 @@ public class UserDAO {
         return user;
     }
     
-    public Users addUser(){
-        Users acc= null;
+    public int addUser(String FirstName, String LastName, String Email, String Phone, String Address, int Role, String Password){
+        int add_acc = 0;
         Connection cn = null;
         try {
             cn =DBUtil.makeConnection();
             if(cn!=null){
-                String sql ="";
+                String sql ="insert Users(FirstName,LastName,Email,Phone,Address,Role,Password) "
+                        + "values(?,?,?,?,?,?,?)";
                 PreparedStatement pst = cn.prepareStatement(sql);
-                pst.setString(0, sql);
-                /*ddd*/
+                pst.setString(1, FirstName);
+                pst.setString(2, LastName);
+                pst.setString(3, Email);
+                pst.setString(4, Phone);
+                pst.setString(5, Address);
+                pst.setInt(6, Role);
+                pst.setString(7, Password);
+                
+                add_acc=pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            try{
+                if(cn!=null) cn.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return add_acc;
+    }
+
+    public Users getUserEmail(String email_user) {
+        Users acc = null;
+        Connection cn = null;
+         try {
+            cn =DBUtil.makeConnection();
+            if(cn!=null){
+                String sql ="select * from Users where Email=?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setString(1, email_user);
                 ResultSet rst = pst.executeQuery();
                 if(rst!=null && rst.next()){
-                    
+                    acc = new Users(rst.getInt("UserID"),
+                            rst.getString("FirstName"),
+                            rst.getString("LastName"),
+                            rst.getString("Email"),
+                            rst.getString("Phone"),
+                            rst.getString("Address"),
+                            rst.getInt("Role"));
                 }
             }
         } catch (Exception e) {
@@ -130,7 +166,6 @@ public class UserDAO {
         }
         return acc;
     }
-
     public Users getUser(int userID) {
         Users user=null;
         Connection cn=null;
