@@ -76,7 +76,7 @@ public class UserDAO {
                             acc_name,
                             rst.getString("Phone"), 
                             rst.getString("Address"),
-                            rst.getInt("Role"), 
+                            rst.getInt("Role"),
                             password
                         );
                     }else{
@@ -167,5 +167,36 @@ public class UserDAO {
             }
         }
         return user;
+    }
+    
+    public int UpdateUser(String fname, String lname, String email, String phone, String address, int role, String pass){
+        int rs=0;
+        Connection cn=null;
+        try{
+            cn=DBUtil.makeConnection();
+            if(cn!=null){
+                String sql = "UPDATE [dbo].[Users]\n"
+                        + "SET [FirstName]=?,[LastName]=?,[Email]=?,[Phone]=?,[Address]=?,[Role]=?,[Password]=?\n"
+                        + "WHERE [UserID]=?";
+                PreparedStatement pst=cn.prepareStatement(sql);
+                pst.setString(1, fname);
+                pst.setString(2, lname);
+                pst.setString(3, email);
+                pst.setString(4, phone);
+                pst.setString(5, address);
+                pst.setInt(6, role);
+                pst.setString(7, pass);
+                rs=pst.executeUpdate();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if(cn!=null) cn.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return rs;
     }
 }
