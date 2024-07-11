@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author hoang
+ * @author MyPC
  */
 public class LogoutServlet extends HttpServlet {
 
@@ -31,6 +31,7 @@ public class LogoutServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
             request.getSession().invalidate();
             response.sendRedirect("Home.jsp");
         }
