@@ -145,7 +145,6 @@ public class UserDAO {
                 ResultSet rs=pst.executeQuery(sql);
                 if(rs!=null){
                     while(rs.next()){
-                        int id=rs.getInt("UserID");
                         String fname=rs.getString("FirstName");
                         String lname=rs.getString("LastName");
                         String email=rs.getString("Email");
@@ -169,7 +168,7 @@ public class UserDAO {
         return user;
     }
     
-    public int UpdateUser(String fname, String lname, String email, String phone, String address, int role, String pass){
+    public int UpdateUser(String fname, String lname, String email, String phone, String address, int role, String pass, int id){
         int rs=0;
         Connection cn=null;
         try{
@@ -186,6 +185,7 @@ public class UserDAO {
                 pst.setString(5, address);
                 pst.setInt(6, role);
                 pst.setString(7, pass);
+                pst.setInt(8, id);
                 rs=pst.executeUpdate();
             }
         }catch (Exception e){

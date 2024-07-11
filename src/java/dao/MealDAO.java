@@ -170,4 +170,35 @@ public class MealDAO {
         }
         return result;
     }
+    
+    public int UpdateMeal(int menuID, String name, String des, String type, String recipe, String ingre, int mealID){
+        int rs=0;
+        Connection cn=null;
+        try{
+            cn=DBUtil.makeConnection();
+            if(cn!=null){
+                String sql = "UPDATE [dbo].[Meals]\n"
+                        + "SET [MenuID]=?,[MealName]=?,[Description]=?,[Type]=?,[Recipe]=?,[Ingredients]=?\n"
+                        + "WHERE [MealID]=?";
+                PreparedStatement pst=cn.prepareStatement(sql);
+                pst.setInt(1, menuID);
+                pst.setString(2, name);
+                pst.setString(3, des);
+                pst.setString(4, type);
+                pst.setString(5, recipe);
+                pst.setString(6, ingre);
+                pst.setInt(7, mealID);
+                rs=pst.executeUpdate();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if(cn!=null) cn.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return rs;
+    }
 }

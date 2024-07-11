@@ -75,7 +75,7 @@ public class MealPlanDetailDAO {
         return result;
     }
 
-    public int UpdateDetail(int planID,int mealID, String day){
+    public int UpdateDetail(int planID,int mealID, String day, int detailID){
         int rs=0;
         Connection cn=null;
         try{
@@ -88,6 +88,7 @@ public class MealPlanDetailDAO {
                 pst.setInt(1, planID);
                 pst.setInt(2, mealID);
                 pst.setString(3, day);
+                pst.setInt(4, detailID);
                 rs=pst.executeUpdate();
             }
         }catch (Exception e){

@@ -103,7 +103,7 @@ public class MealPlanDAO {
         return result;
     }
     
-    public int UpdatePlan(String name,Date start, Date end){
+    public int UpdatePlan(String name,Date start, Date end, int id){
         int rs=0;
         Connection cn=null;
         try{
@@ -116,6 +116,7 @@ public class MealPlanDAO {
                 pst.setString(1, name);
                 pst.setDate(2, start);
                 pst.setDate(3, end);
+                pst.setInt(4, id);
                 rs=pst.executeUpdate();
             }
         }catch (Exception e){
