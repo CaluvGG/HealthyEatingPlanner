@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author MyPC
  */
-public class MainController extends HttpServlet {
+public class SearchServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,23 +32,7 @@ public class MainController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String act = request.getParameter("action");
-
-            switch(act){
-                case "login":
-                    request.getRequestDispatcher("/LoginServlet").forward(request, response);
-                    break;
-                case "register":
-                    request.getRequestDispatcher("/RegisterServlet").forward(request, response);
-                    break;
-                case "logout":
-                    response.sendRedirect("LogoutServlet");
-                    break;
-                // Thêm các trường hợp khác nếu cần
-                default:
-                    response.sendRedirect("accessDenied.html");
-                    break;
-            }
+            
         }
     }
 

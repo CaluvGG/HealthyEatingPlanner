@@ -75,7 +75,7 @@
                                             </c:when>
                                             <c:when test="${IsLoggedd == null}">
                                             <!-- Logged out user options -->
-                                            <li class="logged-out-only"><a href="LoginForm.jsp"> Login</a></li>
+                                            <li class="logged-out-only"><a href="LoginForm.jsp">Login</a></li>
                                             <li class="logged-out-only"><a href="RegisterForm.jsp">Register</a></li>
                                             </c:when>
                                         </c:choose>
@@ -88,6 +88,7 @@
         </div>
 
         <div class="container mt-5">
+            <!--Menu cards-->
             <c:choose>
                 <c:when test="${not empty cardList}">
                     <c:forEach var="card" items="${cardList}" varStatus="status">
