@@ -71,8 +71,17 @@ document.addEventListener('DOMContentLoaded', function () {
         setTimeout(function () {
             msg.style.display = 'none'; // Ẩn thông báo sau 1 giây
             msg.style.transition = 'opacity 0.3s ease';
-        }, n*1000); // n*1000 milliseconds = n giây
-        
-        
+        }, n * 1000); // n*1000 milliseconds = n giây
+
+
     }
 });
+
+// Change page for cards
+function showPage(pageNumber) {
+    const pages = document.querySelectorAll('.card-page');
+    pages.forEach(page => {
+        page.classList.remove('active');
+    });
+    document.getElementById('page' + pageNumber).classList.add('active');
+}

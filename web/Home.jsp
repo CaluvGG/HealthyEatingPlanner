@@ -15,13 +15,13 @@
         <script><%@include file="WEB-INF/js/js.js" %></script>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     </head>
-    <body>
+    <body id="body">
         <!--Check is logged in ?-->
         <c:set var="IsLogged" value="${sessionScope.Login_user}" />
         <!--Regist Succed-->
         <c:if test="${not empty requestScope.Succed_regis}">
             <div class="alert alert-danger alert-dismissible fade show" role="alert" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); z-index: 9999;"
-                  id="erro_msg">
+                 id="erro_msg">
                 ${requestScope.Succed_regis}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -86,37 +86,36 @@
                 </ul>
             </nav>
         </div>
-        <br><br><br><br>
 
-        <div class="container">
+        <div class="container mt-5">
+            <!-- Card Rows -->
             <div class="row">
-                <div id="carouselExampleIndicators" class="carousel slide">
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                    </div>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="..." class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="..." class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="..." class="d-block w-100" alt="...">
+                <c:forEach var="card" items="${cards}" varStatus="status">
+                    <div class="col-md-4 mb-4">
+                        <div class="card text-dark">
+                            <img src="${card.imageUrl}" class="card-img-top" alt="Card Image ${status.index + 1}">
+                            <div class="card-body">
+                                <h5 class="card-title">${card.title}</h5>
+                                <p class="card-text">${card.description}</p>
+                                <p class="card-text"><small>Last updated ${card.lastUpdated}</small></p>
+                            </div>
                         </div>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
+                    <c:if test="${status.index % 3 == 2}">
+                    </div><div class="row">
+                    </c:if>
+                </c:forEach>
             </div>
+            <!-- Pagination -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <c:forEach var="i" begin="1" end="${totalPages}">
+                        <li class="page-item <c:if test='${i == currentPage}'>active</c:if>'">
+                            <a class="page-link" href="CardPagination?page=${i}">${i}</a>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </nav>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
