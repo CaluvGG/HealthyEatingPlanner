@@ -17,11 +17,12 @@ public class Meals {
     private String Type;
     private String Recipe;
     private String Ingredients;
+    private String img;
 
     public Meals() {
     }
 
-    public Meals(int MealID, int MenuID, String MealName, String MealDescription, String Type, String Recipe, String Ingredients) {
+    public Meals(int MealID, int MenuID, String MealName, String MealDescription, String Type, String Recipe, String Ingredients, String img) {
         this.MealID = MealID;
         this.MenuID = MenuID;
         this.MealName = MealName;
@@ -29,6 +30,7 @@ public class Meals {
         this.Type = Type;
         this.Recipe = Recipe;
         this.Ingredients = Ingredients;
+        this.img = img;
     }
 
     public int getMealID() {
@@ -85,6 +87,14 @@ public class Meals {
 
     public void setIngredients(String Ingredients) {
         this.Ingredients = Ingredients;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
     
 }

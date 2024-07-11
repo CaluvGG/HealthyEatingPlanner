@@ -24,7 +24,7 @@ public class MealDAO {
         try{
             cn=DBUtil.makeConnection();
             if(cn!=null){
-                String sql = "SELECT MealID, MenuID, MealName, Description, Type, Recipe, Ingredients\n"
+                String sql = "SELECT MealID, MenuID, MealName, Description, Type, Recipe, Ingredients, Image url\n"
                         + "FROM [dbo].[Meals]";
                 Statement st=cn.createStatement();
                 ResultSet rs=st.executeQuery(sql);
@@ -37,7 +37,8 @@ public class MealDAO {
                         String type=rs.getString("Type");
                         String recipe=rs.getString("Recipe");
                         String ingre=rs.getString("Ingredients");
-                        Meals meal=new Meals(mealid, menuid, name, des, type, recipe, ingre);
+                        String img=rs.getString("Image url");
+                        Meals meal=new Meals(mealid, menuid, name, des, type, recipe, ingre, img);
                         list.add(meal);
                     }
                 }
@@ -60,7 +61,7 @@ public class MealDAO {
         try{
             cn=DBUtil.makeConnection();
             if(cn!=null){
-                String sql = "SELECT MealID, MenuID, MealName, Description, Type, Recipe, Ingredients\n"
+                String sql = "SELECT MealID, MenuID, MealName, Description, Type, Recipe, Ingredients, Image url\n"
                         + "FROM [dbo].[Meals]\n"
                         + "WHERE MealID=?";
                 PreparedStatement pst=cn.prepareStatement(sql);
@@ -74,7 +75,8 @@ public class MealDAO {
                         String type=rs.getString("Type");
                         String recipe=rs.getString("Recipe");
                         String ingre=rs.getString("Ingredients");
-                        meal=new Meals(mealID, menuid, name, des, type, recipe, ingre);
+                        String img=rs.getString("Image url");
+                        meal=new Meals(mealID, menuid, name, des, type, recipe, ingre, img);
                     }
                 }
             }
