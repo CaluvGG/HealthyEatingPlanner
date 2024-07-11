@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author MyPC
  */
-public class SearchServlet extends HttpServlet {
+public class SearchMealServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

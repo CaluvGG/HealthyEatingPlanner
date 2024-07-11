@@ -26,7 +26,7 @@
     </servlet>
     <servlet>
         <servlet-name>SearchServlet</servlet-name>
-        <servlet-class>controller.SearchServlet</servlet-class>
+        <servlet-class>controller.SearchMealServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
@@ -69,8 +69,8 @@
         <url-pattern>/LogoutServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SearchServlet</servlet-name>
-        <url-pattern>/SearchServlet</url-pattern>
+        <servlet-name>SearchMealServlet</servlet-name>
+        <url-pattern>/SearchMealServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>OrderView</servlet-name>
