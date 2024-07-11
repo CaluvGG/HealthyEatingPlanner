@@ -48,7 +48,7 @@ public class MealPlanDetailDAO {
         }
         return meal;
     }
-    
+
     public int addDetail(int planID, int mealID, String Day) {
         Connection cn = null;
         int result = 0;
@@ -73,5 +73,32 @@ public class MealPlanDetailDAO {
             }
         }
         return result;
+    }
+
+    public int UpdateDetail(int planID,int mealID, String day){
+        int rs=0;
+        Connection cn=null;
+        try{
+            cn=DBUtil.makeConnection();
+            if(cn!=null){
+                String sql = "UPDATE [dbo].[MealPlanDetails] \n"
+                        + "SET [PlanID]=?,[MealID]=?,[DayOfWeek]=?\n"
+                        + "WHERE [DetailID]=?";
+                PreparedStatement pst=cn.prepareStatement(sql);
+                pst.setInt(1, planID);
+                pst.setInt(2, mealID);
+                pst.setString(3, day);
+                rs=pst.executeUpdate();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if(cn!=null) cn.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return rs;
     }
 }

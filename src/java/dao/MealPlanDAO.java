@@ -102,4 +102,31 @@ public class MealPlanDAO {
         }
         return result;
     }
+    
+    public int UpdatePlan(String name,Date start, Date end){
+        int rs=0;
+        Connection cn=null;
+        try{
+            cn=DBUtil.makeConnection();
+            if(cn!=null){
+                String sql = "UPDATE [dbo].[MealPlans]\n"
+                        + "SET [PlanName]=?,[StartDate]=?,[EndDate]=?\n"
+                        + "WHERE [PlanID]=?";
+                PreparedStatement pst=cn.prepareStatement(sql);
+                pst.setString(1, name);
+                pst.setDate(2, start);
+                pst.setDate(3, end);
+                rs=pst.executeUpdate();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if(cn!=null) cn.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return rs;
+    }
 }
