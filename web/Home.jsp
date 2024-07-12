@@ -34,7 +34,7 @@
 
                 <ul class="nav-items-left">
                     <li class="nav-item">
-                        <a href="#">Home</a>
+                        <a href="Home.jsp">Home</a>
                     </li>
 
                     <li class="nav-item">
