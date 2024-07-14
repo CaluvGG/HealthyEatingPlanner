@@ -19,16 +19,27 @@
         <!--Check is logged in ?-->
         <c:set var="IsLogged" value="${sessionScope.Login_user}" />
         <!--Notifications-->
-        <c:if test="${not empty IsLogged}">
-            <!-- Log In Success -->
-            <c:set var="msg_w" value="Welcome ${IsLogged.email}" />
-            <div id="erro_msg">
-                <div class="notification" id="notifi_welcome">
-                    <i class="fi fi-br-check"></i>
-                    <span>${msg_w}</span>
+        <c:choose>
+            <c:when test="${not empty IsLogged}">
+                <!-- Log In Success -->
+                <div id="erro_msg">
+                    <div class="notification" id="notifi_welcome">
+                        <i class="fi fi-br-check"></i>
+                        <span>Welcome ${IsLogged.email}</span>
+                    </div>
                 </div>
-            </div>
-        </c:if>
+            </c:when>
+            <c:otherwise>
+                <!-- Not Logged In -->
+                <div id="erro_msg">
+                    <div class="notification" id="notifi_welcome">
+                        <i class="fi fi-br-check"></i>
+                        <span>Have to login first!!!</span>
+                    </div>
+                </div>
+            </c:otherwise>
+        </c:choose>
+
 
         <!--navigate bar-->
         <div id="nav">
@@ -70,7 +81,7 @@
                                     <c:choose>
                                         <c:when test="${not empty IsLogged}">
                                             <!-- Logged in user options -->
-                                            <li class="logged-in-only"><a href="#">Account</a></li>
+                                            <li class="logged-in-only"><a href="MainController?action=account">Account</a></li>
                                             <li class="logged-in-only"><a href="#">Settings</a></li>
                                             <li class="logged-in-only"><a href="#">Order History</a></li>
                                             <li class="logged-in-only"><a href="MainController?action=logout">Log Out</a></li>

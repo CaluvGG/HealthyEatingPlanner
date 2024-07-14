@@ -13,7 +13,7 @@
         <style><%@include file="WEB-INF/css/stylesheet.css"%></style>
         <script><%@include file="WEB-INF/js/js.js" %></script>
     </head>
-    <body>
+    <body style="background-color: wheat">
 
         <div class="Card_container">
             <form action="MainController" method="post" class="form_card">
