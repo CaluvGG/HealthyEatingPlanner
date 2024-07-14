@@ -27,28 +27,30 @@ public class MainController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final String ERROR = "accessDenied.html";
+    private static final String HOMEPAGE = "Home.jsp";
+    private static final String LOGIN = "login";
+    private static final String LOGIN_SERV = "LoginServlet";
+    private static final String REGISTER = "register";
+    private static final String REGISTER_SERV = "RegisterServlet";
+    private static final String LOGOUT = "logout";
+    private static final String LOGOUT_SERV = "LogoutServlet";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            String act = request.getParameter("action");
+        String url = ERROR;
+        try {
+            String action = request.getParameter("action");
+            if(action==null||action.isEmpty()) url = HOMEPAGE;
+            else if (LOGIN.equalsIgnoreCase(action))url = LOGIN_SERV;
+            else if (LOGOUT.equalsIgnoreCase(action))url = LOGOUT_SERV;
+            else if (REGISTER.equalsIgnoreCase(action))url = REGISTER_SERV;
 
-            switch(act){
-                case "login":
-                    request.getRequestDispatcher("/LoginServlet").forward(request, response);
-                    break;
-                case "register":
-                    request.getRequestDispatcher("/RegisterServlet").forward(request, response);
-                    break;
-                case "logout":
-                    response.sendRedirect("LogoutServlet");
-                    break;
-                // Thêm các trường hợp khác nếu cần
-                default:
-                    response.sendRedirect("accessDenied.html");
-                    break;
-            }
+        } catch (Exception e) {
+            log("Error at MainController: " + e.toString());
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 
