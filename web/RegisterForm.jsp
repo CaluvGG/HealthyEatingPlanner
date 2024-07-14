@@ -38,15 +38,15 @@
                     <select name="text_city" id="citySelect" required onchange="updateDistrictOptions()">
                         <option value="" disabled selected>Select your city</option>
                         <option value="Ho Chi Minh">Ho Chi Minh</option>
-                        <option value="Hanoi">Hanoi</option>
-                        <option value="Da Nang">Da Nang</option>
-                        <option value="Nha Trang">Nha Trang</option>
-                        <option value="Can Tho">Can Tho</option>
                     </select>
                     <select name="text_district" id="districtSelect" required>
                         <option value="" disabled selected>Select your district</option>
-                        <!-- District options will be populated based on city selection -->
+                        <option value="District 1">District 1</option>
+                        <option value="District 2">District 2</option>
+                        <option value="District 3">District 3</option>
+                        <option value="District 4">District 4</option>
                     </select>
+
                 </div>
 
                 <div class="box_text">

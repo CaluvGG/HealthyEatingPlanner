@@ -1,6 +1,7 @@
+@import url('https://cdn-uicons.flaticon.com/2.4.2/uicons-bold-rounded/css/uicons-bold-rounded.css');
+
 #body {
     background-color: #B5655B;
-
     padding: 0;
 }
 
@@ -8,9 +9,9 @@
 
 /* navbar */
 #nav {
-/*    position: fixed;
-    top: 0;
-    left: 0;*/
+    /*    position: fixed;
+        top: 0;
+        left: 0;*/
     width: 100%;
     margin-right: 2em; 
     box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.1);
@@ -244,3 +245,42 @@
 /*Card paging*/
 .card-page { display: none; }
 .card-page.active { display: block; }
+
+
+/*Notifications*/
+.notification {
+    position: absolute;
+    top: 7em;
+    left: 48%;
+    border-radius: 5px;
+    transform: translate(-50%, -50%);
+    padding: 1em 1em 1em 3em;
+    color: black;
+    z-index: 100;
+}
+
+.notification i {
+    position: absolute;
+    left: 1em;
+}
+.notification span {
+    opacity: 0.8;
+    font-size: 1em;
+}
+
+#notifi_welcome {
+    background-color: rgba(52, 152, 219, 0.482);
+    border: 1px solid #2980b9;
+}
+
+#notifi_success {
+    background-color: rgba(62, 255, 143, 0.75);
+    border: 1px solid #1faa52;
+    display: none;
+}
+
+#notifi_fail {
+    background-color: rgba(231, 77, 60, 0.618);
+    border: 1px solid #c0392b;
+    display: none;
+}

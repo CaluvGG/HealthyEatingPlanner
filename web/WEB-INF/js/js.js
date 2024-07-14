@@ -63,15 +63,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //Display message for n_s
 document.addEventListener('DOMContentLoaded', function () {
-    var n = 2;
+    var n = 1;
     var msg = document.getElementById('erro_msg');
     if (msg) {
         msg.style.display = 'block'; // Hiển thị thông báo
 
         setTimeout(function () {
-            msg.style.display = 'none'; // Ẩn thông báo sau 1 giây
-            msg.style.transition = 'opacity 0.3s ease';
-        }, n * 1000); // n*1000 milliseconds = n giây
+            msg.style.transition = 'opacity 0.5s ease';
+            msg.style.opacity = '0'; // Lm cho msg mờđi trong 0,5 giây
+            setTimeout(function () {
+                msg.style.display = 'none'; // Tắt display sau 0.5 giây
+            }, 500);
+        }, n * 1000); // Sau n*1000 milliseconds = n giây thì cái trên chạy
 
 
     }

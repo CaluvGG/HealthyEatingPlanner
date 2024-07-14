@@ -51,7 +51,6 @@ public class RegisterServlet extends HttpServlet {
             if (acc == null) {
                 int result = d.addUser(fname_user, lname_user, email_user, phone_user, address_user, Integer.parseInt(role_user), pass_user);
                 if (result > 0) {
-                    request.setAttribute("Succed_regis", "Regist successfully");
                     request.getRequestDispatcher("Home.jsp").forward(request, response);
                 } else {
                     response.sendRedirect("accessDenied.html");

@@ -13,19 +13,21 @@
         <title>Healthy Meals</title>
         <style><%@include file="WEB-INF/css/stylesheet.css"%></style>
         <script><%@include file="WEB-INF/js/js.js" %></script>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body id="body">
         <!--Check is logged in ?-->
         <c:set var="IsLogged" value="${sessionScope.Login_user}" />
-        <!--Regist Succed-->
-        <c:if test="${not empty requestScope.Succed_regis}">
-            <div class="alert alert-danger alert-dismissible fade show" role="alert" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); z-index: 9999;"
-                 id="erro_msg">
-                ${requestScope.Succed_regis}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <!--Notifications-->
+        <c:if test="${not empty IsLogged}">
+            <!-- Log In Success -->
+            <c:set var="msg_w" value="Welcome ${IsLogged.email}" />
+            <div id="erro_msg">
+                <div class="notification" id="notifi_welcome">
+                    <i class="fi fi-br-check"></i>
+                    <span>${msg_w}</span>
+                </div>
             </div>
-            <c:remove var="Succed_regis" scope="request"/>
         </c:if>
 
         <!--navigate bar-->
@@ -115,7 +117,7 @@
                         <ul class="pagination justify-content-center">
                             <c:forEach var="i" begin="1" end="">
                                 <li class="page-item"><a class="page-link" href="#" onclick="showPage(${i})">${i}</a></li>
-                            </c:forEach>
+                                </c:forEach>
                         </ul>
                     </nav>
                 </c:when>
@@ -123,9 +125,8 @@
                     <p>No cards available.</p>
                 </c:otherwise>
             </c:choose>
-
         </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
