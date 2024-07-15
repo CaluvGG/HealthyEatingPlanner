@@ -38,9 +38,6 @@ public class MainController extends HttpServlet {
     
     private static final String LOGOUT = "logout";
     private static final String LOGOUT_SERV = "LogoutServlet";
-    
-    private static final String ACCOUNT = "account";
-    private static final String ACCPAGE = "Account.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -52,7 +49,7 @@ public class MainController extends HttpServlet {
             else if (LOGIN.equalsIgnoreCase(action))url = LOGIN_SERV;
             else if (LOGOUT.equalsIgnoreCase(action))url = LOGOUT_SERV;
             else if (REGISTER.equalsIgnoreCase(action))url = REGISTER_SERV;
-            else if (ACCOUNT.equalsIgnoreCase(action))url = ACCPAGE;
+            
 
         } catch (Exception e) {
             log("Error at MainController: " + e.toString());

@@ -43,7 +43,7 @@ public class LoginServlet extends HttpServlet {
                 if (acc != null) {
                     HttpSession session = request.getSession();
                     session.setAttribute("Login_user", acc);
-                    request.getRequestDispatcher("Home.jsp").forward(request, response);
+                    response.sendRedirect("Home.jsp");
                 }
                 else {
                     String msg = "Invalid User";

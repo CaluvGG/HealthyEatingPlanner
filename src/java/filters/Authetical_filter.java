@@ -124,8 +124,8 @@ public class Authetical_filter implements Filter {
                 if (session!=null && session.getAttribute("Login_user")!=null) {
                     chain.doFilter(request, response);
                 }else{
-                    // Đảm bảo sử dụng đường dẫn tuyệt đối
-                    httpRes.sendRedirect(httpReq.getContextPath() + "/Home.jsp");
+                    session.setAttribute("ERROR_AUTHENTY", "Please log in first!!!");
+                    httpReq.getRequestDispatcher("MainController").forward(request, response);
                 }
             }
         } catch (Throwable t) {

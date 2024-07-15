@@ -19,26 +19,26 @@
         <!--Check is logged in ?-->
         <c:set var="IsLogged" value="${sessionScope.Login_user}" />
         <!--Notifications-->
-        <c:choose>
-            <c:when test="${not empty IsLogged}">
-                <!-- Log In Success -->
-                <div id="erro_msg">
-                    <div class="notification" id="notifi_welcome">
-                        <i class="fi fi-br-check"></i>
-                        <span>Welcome ${IsLogged.email}</span>
-                    </div>
+        <c:if test="${not empty IsLogged}">
+            <!-- Log In Success -->
+            <div id="erro_msg">
+                <div class="notification" id="notifi_welcome">
+                    <i class="fi fi-br-check"></i>
+                    <span>Welcome ${IsLogged.email}</span>
                 </div>
-            </c:when>
-            <c:otherwise>
-                <!-- Not Logged In -->
-                <div id="erro_msg">
-                    <div class="notification" id="notifi_welcome">
-                        <i class="fi fi-br-check"></i>
-                        <span>Have to login first!!!</span>
-                    </div>
+            </div>
+        </c:if>
+        <c:if test="${not empty sessionScope.ERROR_AUTHENTY}">
+            <!-- Not Logged In -->
+            <div id="erro_msg">
+                <div class="notification" id="notifi_welcome">
+                    <i class="fi fi-br-check"></i>
+                    <span>Have to login first!!!</span>
                 </div>
-            </c:otherwise>
-        </c:choose>
+            </div>
+            <c:remove var="ERROR_AUTHENTY" scope="session"/>
+        </c:if>
+
 
 
         <!--navigate bar-->
@@ -81,7 +81,7 @@
                                     <c:choose>
                                         <c:when test="${not empty IsLogged}">
                                             <!-- Logged in user options -->
-                                            <li class="logged-in-only"><a href="MainController?action=account">Account</a></li>
+                                            <li class="logged-in-only"><a href="Account.jsp">Account</a></li>
                                             <li class="logged-in-only"><a href="#">Settings</a></li>
                                             <li class="logged-in-only"><a href="#">Order History</a></li>
                                             <li class="logged-in-only"><a href="MainController?action=logout">Log Out</a></li>
