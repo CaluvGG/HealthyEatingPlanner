@@ -100,44 +100,18 @@
             </nav>
         </div>
 
-        <div class="container mt-5">
-            <!--Menu cards-->
-            <c:choose>
-                <c:when test="${not empty cardList}">
-                    <c:forEach var="card" items="${cardList}" varStatus="status">
-                        <c:if test="${status.index % 6 == 0}">
-                            <div class="row card-page ${status.index == 0 ? 'active' : ''}" id="page${(status.index / 6) + 1}">
-                            </c:if>
-                            <div class="col-md-4 mb-4">
-                                <div class="card text-dark">
-                                    <img src="${card.imageUrl}" class="card-img-top" alt="${card.title}">
-                                    <div class="card-body">
-                                        <h5 class="card-title">${card.title}</h5>
-                                        <p class="card-text">${card.description}</p>
-                                        <p class="card-text"><small>Last updated ${card.lastUpdated}</small></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <c:if test="${status.index % 6 == 5 || status.last}">
-                            </div>
-                        </c:if>
-                    </c:forEach>
-
-                    <!-- Pagination -->
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            <c:forEach var="i" begin="1" end="">
-                                <li class="page-item"><a class="page-link" href="#" onclick="showPage(${i})">${i}</a></li>
-                                </c:forEach>
-                        </ul>
-                    </nav>
-                </c:when>
-                <c:otherwise>
-                    <p>No cards available.</p>
-                </c:otherwise>
-            </c:choose>
+        <c:if test="${empty menulist}">
+            <p>No menu available</p>
+        </c:if>
+        <div class="menu-container">
+            <c:forEach var="menu" items="${menulist}">
+                <div class="menu-item">
+                    <h3>${menu.menuName}</h3>
+                    <p>${menu.menuDescription}</p>
+                </div>
+            </c:forEach>
         </div>
-
+            
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

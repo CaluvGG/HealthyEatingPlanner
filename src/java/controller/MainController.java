@@ -28,7 +28,7 @@ public class MainController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     private static final String ERROR = "accessDenied.html";
-    private static final String HOMEPAGE = "Home.jsp";
+    private static final String HOMEPAGE = "GetMenuServlet";
     
     private static final String LOGIN = "login";
     private static final String LOGIN_SERV = "LoginServlet";

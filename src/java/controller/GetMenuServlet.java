@@ -29,6 +29,8 @@ public class GetMenuServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final String SUCCES="Home.jsp";
+    private static final String ERROR="accessDenied.html";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -36,8 +38,10 @@ public class GetMenuServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             MenuDAO d=new MenuDAO();
             ArrayList<Menu> list=d.getAllMenu();
-            request.setAttribute("menulist", list);
-            request.getRequestDispatcher("MenuView.jsp").forward(request, response);
+            if(list!=null && list.size()>0){
+                request.setAttribute("menulist", list);
+            }
+            request.getRequestDispatcher(SUCCES).forward(request, response);
         }
     }
 
