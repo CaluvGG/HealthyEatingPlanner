@@ -300,12 +300,25 @@
     display: none;
 }
 
+.menu-wrapper {
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
 .menu-container {
     display: flex;
-    overflow-x: auto;
+    overflow-x: scroll;
     white-space: nowrap;
     padding: 10px;
     border: 1px solid #ddd;
+    scrollbar-width: none; /* For Firefox */
+}
+
+.menu-container::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
 }
 
 .menu-item {
@@ -318,6 +331,13 @@
     text-align: center;
 }
 
+.menu-item img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 10px;
+}
+
 .menu-item h3 {
     margin: 0;
     font-size: 1.2em;
@@ -325,4 +345,23 @@
 
 .menu-item p {
     margin: 0.5em 0 0;
+}
+
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.scroll-btn.left {
+    left: 0;
+}
+
+.scroll-btn.right {
+    right: 0;
 }

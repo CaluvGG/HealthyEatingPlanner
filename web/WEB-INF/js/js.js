@@ -91,5 +91,25 @@ function showPage(pageNumber) {
 
 document.addEventListener('DOMContentLoaded', function () {
     const menuContainer = document.querySelector('.menu-container');
-    // Example: Add buttons or other JS functionality if needed
+    const scrollButtons = document.querySelectorAll('.scroll-btn');
+
+    // Scroll by a set amount (adjust this value as needed)
+    const scrollAmount = menuContainer.clientWidth / 2;
+
+    // Scroll on mouse wheel
+    menuContainer.addEventListener('wheel', (event) => {
+        event.preventDefault();
+        menuContainer.scrollLeft += event.deltaY;
+    });
+
+    // Scroll on button click
+    scrollButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (button.classList.contains('left')) {
+                menuContainer.scrollLeft -= scrollAmount;
+            } else {
+                menuContainer.scrollLeft += scrollAmount;
+            }
+        });
+    });
 });

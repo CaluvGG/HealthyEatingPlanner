@@ -13,14 +13,16 @@ public class Menu {
     private int MenuID;
     private String MenuName;
     private String MenuDescription;
+    private String imgUrl;
 
     public Menu() {
     }
 
-    public Menu(int MenuID, String MenuName, String MenuDescription) {
+    public Menu(int MenuID, String MenuName, String MenuDescription, String imgUrl) {
         this.MenuID = MenuID;
         this.MenuName = MenuName;
         this.MenuDescription = MenuDescription;
+        this.imgUrl = imgUrl;
     }
 
     public int getMenuID() {
@@ -46,5 +48,12 @@ public class Menu {
     public void setMenuDescription(String MenuDescription) {
         this.MenuDescription = MenuDescription;
     }
-    
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
 }

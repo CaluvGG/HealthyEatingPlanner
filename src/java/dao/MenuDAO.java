@@ -24,7 +24,7 @@ public class MenuDAO {
         try{
             cn=DBUtil.makeConnection();
             if(cn!=null){
-                String sql = "SELECT [MenuID],[MenuName],[Description]\n"
+                String sql = "SELECT [MenuID],[MenuName],[Description],[img-url]\n"
                         + "FROM [dbo].[Menu]";
                 Statement st=cn.createStatement();
                 ResultSet rs=st.executeQuery(sql);
@@ -33,7 +33,8 @@ public class MenuDAO {
                         int id=rs.getInt("MenuID");
                         String name=rs.getString("MenuName");
                         String des=rs.getString("Description");
-                        Menu menu=new Menu(id, name, des);
+                        String img=rs.getString("img-url");
+                        Menu menu=new Menu(id, name, des, img);
                         list.add(menu);
                     }
                 }
@@ -56,7 +57,7 @@ public class MenuDAO {
         try{
             cn=DBUtil.makeConnection();
             if(cn!=null){
-                String sql = "SELECT [MenuID],[MenuName],[Description]\n"
+                String sql = "SELECT [MenuID],[MenuName],[Description],[img-url]\n"
                         + "FROM [dbo].[Menu]\n"
                         + "WHERE [MenuID]=?";
                 PreparedStatement pst=cn.prepareStatement(sql);
@@ -66,7 +67,8 @@ public class MenuDAO {
                     while(rs.next()){
                         String name=rs.getString("MenuName");
                         String des=rs.getString("Description");
-                        menu=new Menu(menuID, name, des);
+                        String img=rs.getString("img-url");
+                        menu=new Menu(menuID, name, des, img);
                     }
                 }
             }

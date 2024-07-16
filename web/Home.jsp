@@ -103,15 +103,18 @@
         <c:if test="${empty menulist}">
             <p>No menu available</p>
         </c:if>
-        <div class="menu-container">
-            <c:forEach var="menu" items="${menulist}">
-                <div class="menu-item">
-                    <h3>${menu.menuName}</h3>
-                    <p>${menu.menuDescription}</p>
-                </div>
-            </c:forEach>
+        <div class="menu-wrapper">
+            <div class="menu-container">
+                <button class="scroll-btn left">&lt;</button>
+                <c:forEach var="menu" items="${menulist}">
+                    <div class="menu-item">
+                        <img src="${menu.imgUrl}" width="100%" alt="${menu.menuName}">
+                        <h3><a href="" >${menu.menuName}</a></h3>
+                    </div>
+                </c:forEach>
+            </div>
+            <button class="scroll-btn right">&gt;</button>
         </div>
-            
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
