@@ -62,6 +62,12 @@ public class MainController extends HttpServlet {
     
     private static final String MEAL = "meal";
     private static final String MEAL_SERV = "GetMealServlet";
+    
+    private static final String PLAN = "plan";
+    private static final String PLAN_SERV = "GetPlanServlet";
+    
+    private static final String CREATE = "createplan";
+    private static final String CREATE_SERV = "CreatePlanServlet";
   
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -79,9 +85,11 @@ public class MainController extends HttpServlet {
             else if (MENU.equalsIgnoreCase(action))url = MENU_SERV + "?menuid=" + request.getParameter("menuid");
             else if (CONFIRMPASS.equalsIgnoreCase(action)) url=CONFIRMPASS_SERV;
             else if (SEARCH.equalsIgnoreCase(action))url = SEARCH_SERV;
-            else if (VIEWORDER.equalsIgnoreCase(action))url = VIEWORDER_SERV+ "?userid=" + request.getParameter("userid");
+            else if (VIEWORDER.equalsIgnoreCase(action))url = VIEWORDER_SERV + "?userid=" + request.getParameter("userid");
             else if (DETAIL.equalsIgnoreCase(action))url = DETAIL_SERV;
             else if (MEAL.equalsIgnoreCase(action))url = MEAL_SERV;
+            else if (PLAN.equalsIgnoreCase(action))url = PLAN_SERV + "?userid=" + request.getParameter("userid");
+            else if (CREATE.equalsIgnoreCase(action))url = CREATE_SERV;
 
         } catch (Exception e) {
             log("Error at MainController: " + e.toString());

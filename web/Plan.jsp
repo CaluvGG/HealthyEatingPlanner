@@ -55,7 +55,7 @@
                     </li>
                     
                     <li class="nav-item">
-                        <a href="MainController?action=plan&userid=${IsLogged.userID}">Plan</a>
+                        <a href="MainController?action=plan">Plan</a>
                     </li>
                 </ul>
 
@@ -103,26 +103,45 @@
                 </ul>
             </nav>
         </div>
-
+                            
         <c:choose>
-            <c:when test="${empty applicationScope.menulist}">
-                <p>No menu available</p>
+            <c:when test="${empty planlist}">
+                <p>No plan available</p>
             </c:when>
             <c:otherwise>
-                <div class="menu-wrapper">
-                    <button class="scroll-btn left">&lt;</button>
-                    <div class="menu-container">
-                        <c:forEach var="menu" items="${applicationScope.menulist}">
-                            <div class="menu-item">
-                                <a href="MainController?action=menu&menuid=${menu.menuID}" >
-                                    <img src="${menu.imgUrl}" width="100%" alt="${menu.menuName}">
-                                </a>
-                            </div>
-                        </c:forEach>
-                    </div>
-                    <button class="scroll-btn right">&gt;</button>
+                <form action="MainController" method="post">
+                    <label for="planName">Plan Name:</label>
+                    <input type="text" id="planName" name="planName" required>
+                    <label for="startDate">Start Date:</label>
+                    <input type="date" id="startDate" name="startDate">
+                    <label for="endDate">End Date:</label>
+                    <input type="date" id="endDate" name="endDate">
+                    <button type="submit" name="action" value="createplan">Create Plan</button>
+                </form>
+                <div class="planlist">
+                    <div class="pla1">Plan NO</div>
+                    <div class="pla2">Plan name</div>
+                    <div class="pla3">Start</div>
+                    <div class="pla4">End</div>
+                    <div class="pla5">Modify</div>
                 </div>
-            </c:otherwise>
+                <c:set var="count" value="0"/>
+                <c:forEach var="plan" items="${planlist}">
+                    <c:set var="count" value="${count + 1}" />
+                    <div class="planlist">
+                        <div class="pla1">${count}</div>
+                        <div class="pla2">${plan.planName}</div>
+                        <div class="pla3">${plan.startDate}</div>
+                        <div class="pla4">${plan.endDate}</div>
+                        <div class="pla5">
+                            <form action="MainController" method="post">
+                                <button type="submit" name="action"><a href="updateMealPlan?planId=${plan.planID}">Update</a></button>
+                                <button type="submit" name="action"><a href="RemoveMealPlan?planId=${plan.planID}">Remove</a></button>
+                            </form>
+                        </div>
+                    </div>
+                </c:forEach>
+            </c:otherwise>    
         </c:choose>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     </body>

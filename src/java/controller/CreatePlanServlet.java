@@ -5,11 +5,11 @@
  */
 package controller;
 
-import dao.OrderDAO;
-import dbo.Orders;
+import dao.MealPlanDAO;
+import dbo.MealPlans;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,10 +19,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author user
  */
-public class GetOrderServlet extends HttpServlet {
+public class CreatePlanServlet extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -39,12 +40,15 @@ public class GetOrderServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String url = ERROR;
             try {
-                String id=request.getParameter("userid");
-                OrderDAO d = new OrderDAO();
-                ArrayList<Orders> list = d.getOrders(Integer.parseInt(id));
-                if (list != null && list.size() > 0) {
-                    request.setAttribute("orderlist", list);
-                    url = SUCCESS;
+                String planName = request.getParameter("planName");
+                String startDate = request.getParameter("startDate");
+                String endDate = request.getParameter("endDate");
+                String userId = request.getParameter("userID");
+                MealPlans plan=new MealPlans(Integer.parseInt(userId), planName, startDate, endDate);
+                MealPlanDAO dao=new MealPlanDAO();
+                if (plan != null) {
+                    dao.createPersonalMealPlan(plan);
+                    url=SUCCESS;
                 }
             } catch (Exception e) {
                 log("Error at:" + e.toString());
@@ -53,7 +57,6 @@ public class GetOrderServlet extends HttpServlet {
             }
         }
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

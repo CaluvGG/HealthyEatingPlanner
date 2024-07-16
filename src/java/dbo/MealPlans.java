@@ -15,15 +15,22 @@ public class MealPlans {
     private int PlanID;
     private int UserID;
     private String PlanName ;
-    private Date StartDate;
-    private Date EndDate;
+    private String StartDate;
+    private String EndDate;
 
     public MealPlans() {
     }
 
-    public MealPlans(int PlanID, int UserID, String PlanName, Date StartDate, Date EndDate) {
+    public MealPlans(int PlanID, int UserID, String PlanName, String StartDate, String EndDate) {
         this.PlanID = PlanID;
         this.UserID = UserID;
+        this.PlanName = PlanName;
+        this.StartDate = StartDate;
+        this.EndDate = EndDate;
+    }
+
+    public MealPlans(int PlanID, String PlanName, String StartDate, String EndDate) {
+        this.PlanID = PlanID;
         this.PlanName = PlanName;
         this.StartDate = StartDate;
         this.EndDate = EndDate;
@@ -53,21 +60,20 @@ public class MealPlans {
         this.PlanName = PlanName;
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return StartDate;
     }
 
-    public void setStartDate(Date StartDate) {
+    public void setStartDate(String StartDate) {
         this.StartDate = StartDate;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return EndDate;
     }
 
-    public void setEndDate(Date EndDate) {
+    public void setEndDate(String EndDate) {
         this.EndDate = EndDate;
     }
-    
     
 }

@@ -380,9 +380,7 @@
 .mealmenu {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
+    grid-template-rows: repeat(3, 1fr); 
     margin-bottom: 100px;
 
 }
@@ -428,8 +426,6 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr) 0.5fr;
     grid-template-rows: 0.3fr;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
     margin-bottom: 20px;
 }
 
@@ -459,8 +455,6 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 0.3fr;
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
     margin-bottom: 20px;
 }
 
@@ -487,6 +481,62 @@
 }
 .det4 {
     grid-area: 1 / 4 / 2 / 5; 
+    border-style: solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.meallist {
+    display: grid;
+    grid-column-gap: 10px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.meal-item {
+    clear: both;
+    margin-left: 0;
+    margin-bottom: 20px;
+    font-weight: bold
+}
+
+.planlist {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 0.3fr;
+    margin-bottom: 20px;
+}
+
+.pla1 {
+    grid-area: 1 / 1 / 2 / 2; 
+    border-style: solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pla2 {
+    grid-area: 1 / 2 / 2 / 3;
+    border-style: solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pla3 {
+    grid-area: 1 / 3 / 2 / 4;
+    border-style: solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pla4 {
+    grid-area: 1 / 4 / 2 / 5;
+    border-style: solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pla5 {
+    grid-area: 1 / 5 / 2 / 6;
     border-style: solid;
     display: flex;
     align-items: center;

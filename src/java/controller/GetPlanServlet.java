@@ -5,8 +5,8 @@
  */
 package controller;
 
-import dao.MealDAO;
-import dbo.Meals;
+import dao.MealPlanDAO;
+import dbo.MealPlans;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author user
  */
-public class GetMealServlet extends HttpServlet {
+public class GetPlanServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,9 +30,9 @@ public class GetMealServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String SUCCESS = "Meal.jsp";
-    private static final String ERROR = "Home.jsp";
-    
+    private static final String SUCCESS = "Plan.jsp";
+    private static final String ERROR = "Plan.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -40,10 +40,11 @@ public class GetMealServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String url = ERROR;
             try {
-                MealDAO d = new MealDAO();
-                ArrayList<Meals> list = d.getAllMeal();
+                String id=request.getParameter("userid");
+                MealPlanDAO d = new MealPlanDAO();
+                ArrayList<MealPlans> list = d.getPersonalMealPlans(Integer.parseInt(id));
                 if (list != null && list.size() > 0) {
-                    request.setAttribute("meallist", list);
+                    request.setAttribute("planlist", list);
                     url = SUCCESS;
                 }
             } catch (Exception e) {

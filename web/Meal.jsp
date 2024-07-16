@@ -105,11 +105,15 @@
                 <p>No meal available</p>
             </c:when>
             <c:otherwise>
-                        <ul>
-                        <c:forEach var="meal" items="${meallist}">
-                            <li>${meal.mealName}</li>
-                        </c:forEach>
-                        </ul>
+                <div class="meallist">
+                    <c:forEach var="meal" items="${meallist}">
+                        <div class="meal-item">
+                            ${meal.mealName}<br/>
+                            <img src="${meal.img}" alt="${meal.mealName}">
+                        </div>
+                        
+                    </c:forEach>
+                </div>
             </c:otherwise>
         </c:choose>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>

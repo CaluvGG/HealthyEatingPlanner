@@ -25,15 +25,15 @@ public class MealPlanDAO {
         try {
             cn = DBUtil.makeConnection();
             if (cn != null) {
-                String sql = "SELECT PlanID, PlanName, StartDate, EndDate FROM PersonalMealPlans WHERE UserID = ?";
+                String sql = "SELECT PlanID, PlanName, StartDate, EndDate FROM MealPlans WHERE UserID = ?";
                 PreparedStatement pst = cn.prepareStatement(sql);
                 pst.setInt(1, userId);
                 ResultSet rs = pst.executeQuery();
                 while (rs.next()) {
                     int planId = rs.getInt("PlanID");
                     String planName = rs.getString("PlanName");
-                    Date startDate = rs.getDate("StartDate");
-                    Date endDate = rs.getDate("EndDate");
+                    String startDate = rs.getString("StartDate");
+                    String endDate = rs.getString("EndDate");
                     MealPlans plan = new MealPlans(planId, userId, planName, startDate, endDate);
                     list.add(plan);
                 }
@@ -59,8 +59,8 @@ public class MealPlanDAO {
                 PreparedStatement pst = cn.prepareStatement(sql);
                 pst.setInt(1, plan.getUserID());
                 pst.setString(2, plan.getPlanName());
-                pst.setDate(3, plan.getStartDate());
-                pst.setDate(4, plan.getEndDate());
+                pst.setString(3, plan.getStartDate());
+                pst.setString(4, plan.getEndDate());
                 pst.executeUpdate();
             }
         } catch (Exception e) {
@@ -82,8 +82,8 @@ public class MealPlanDAO {
                 String sql = "UPDATE PersonalMealPlans SET PlanName = ?, StartDate = ?, EndDate = ? WHERE PlanID = ?";
                 PreparedStatement pst = cn.prepareStatement(sql);
                 pst.setString(1, plan.getPlanName());
-                pst.setDate(2, plan.getStartDate());
-                pst.setDate(3, plan.getEndDate());
+                pst.setString(2, plan.getStartDate());
+                pst.setString(3, plan.getEndDate());
                 pst.setInt(4, plan.getPlanID());
                 pst.executeUpdate();
             }
