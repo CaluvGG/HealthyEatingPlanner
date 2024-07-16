@@ -110,7 +110,7 @@
                     <div class="menu-container">
                         <c:forEach var="menu" items="${applicationScope.menulist}">
                             <div class="menu-item">
-                                <a href="MainController?action=menu&menuid=${menu.menuID}"  >
+                                <a href="MainController?action=menu&menuid=${menu.menuID}" >
                                     <img src="${menu.imgUrl}" width="100%" alt="${menu.menuName}">
                                 </a>
                             </div>

@@ -5,8 +5,11 @@
  */
 package controller;
 
+import dao.MealDAO;
+import dbo.Meals;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,9 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author MyPC
+ * @author user
  */
-public class MainController extends HttpServlet {
+public class GetMealFromMenuServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -27,52 +30,30 @@ public class MainController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String ERROR = "accessDenied.html";
-    private static final String HOME = "home";
-    private static final String HOMEPAGE = "Home.jsp";
+    private static final String SUCCESS = "Menu.jsp";
+    private static final String ERROR = "Home.jsp";
     
-    private static final String LOGIN = "login";
-    private static final String LOGIN_SERV = "LoginServlet";
-    
-    private static final String REGISTER = "register";
-    private static final String REGISTER_SERV = "RegisterServlet";
-    
-    private static final String LOGOUT = "logout";
-    private static final String LOGOUT_SERV = "LogoutServlet";
-    
-    private static final String UPDATE_ACC = "update_acc";
-    private static final String UPDATE_ACC_SERV = "UpdateAccServlet";
-    
-    private static final String DELETE_ACC = "delete_acct";
-    private static final String DELETE_ACC_SERV = "DeleteServlet";
-    
-//    private static final String ORDER = "order";
-//    private static final String ORDER_SERV = "";
-    
-    private static final String MENU = "menu";
-    private static final String MENU_SERV = "GetMealFromMenuServlet";
-  
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        try {
-            String action = request.getParameter("action");
-            if(action==null||action.isEmpty()||HOME.equalsIgnoreCase(action)) url = HOMEPAGE;
-            else if (LOGIN.equalsIgnoreCase(action))url = LOGIN_SERV;
-            else if (LOGOUT.equalsIgnoreCase(action))url = LOGOUT_SERV;
-            else if (REGISTER.equalsIgnoreCase(action))url = REGISTER_SERV;
-            else if (DELETE_ACC.equalsIgnoreCase(action))url = DELETE_ACC_SERV; 
-            else if (UPDATE_ACC.equalsIgnoreCase(action))url = UPDATE_ACC_SERV;
-//            else if (ORDER.equalsIgnoreCase(action))url = ORDER_SERV;
-            else if (MENU.equalsIgnoreCase(action))url = MENU_SERV + "?menuid=" + request.getParameter("menuid");
-
-        } catch (Exception e) {
-            log("Error at MainController: " + e.toString());
-        } finally {
-            if(url.equalsIgnoreCase(HOMEPAGE))response.sendRedirect(HOMEPAGE);
-            else request.getRequestDispatcher(url).forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            String url = ERROR;
+            try {
+                String menuID=request.getParameter("menuid");
+                if (menuID != null && !menuID.isEmpty()) {
+                MealDAO dao=new MealDAO();
+                ArrayList<Meals> list=dao.getMealBaseOnMenu(Integer.parseInt(menuID));
+                if (list != null && list.size() > 0) {
+                    request.setAttribute("meallist", list);
+                    url = SUCCESS;
+                }
+                }
+            } catch (Exception e) {
+                log("Error at:" + e.toString());
+            } finally {
+                request.getRequestDispatcher(url).forward(request, response);
+            }
         }
     }
 

@@ -18,13 +18,13 @@ import mylib.DBUtil;
  * @author user
  */
 public class MealDAO {
-    public ArrayList<Meals> getAllMenu() {
+    public ArrayList<Meals> getAllMeal() {
         ArrayList<Meals> list=new ArrayList<>();
         Connection cn=null;
         try{
             cn=DBUtil.makeConnection();
             if(cn!=null){
-                String sql = "SELECT MealID, MenuID, MealName, Description, Type, Recipe, Ingredients, Image url\n"
+                String sql = "SELECT MealID, MenuID, MealName, Description, Type, Recipe, Ingredients, [Image url]\n"
                         + "FROM [dbo].[Meals]";
                 Statement st=cn.createStatement();
                 ResultSet rs=st.executeQuery(sql);
@@ -55,7 +55,7 @@ public class MealDAO {
         return list;
     }
     
-    public Meals getMenu(int mealID) {
+    public Meals getMeal(int mealID) {
         Meals meal=null;
         Connection cn=null;
         try{
@@ -66,7 +66,7 @@ public class MealDAO {
                         + "WHERE MealID=?";
                 PreparedStatement pst=cn.prepareStatement(sql);
                 pst.setInt(1, mealID);
-                ResultSet rs=pst.executeQuery(sql);
+                ResultSet rs=pst.executeQuery();
                 if(rs!=null){
                     while(rs.next()){
                         int menuid=rs.getInt("MenuID");
@@ -90,6 +90,44 @@ public class MealDAO {
             }
         }
         return meal;
+    }
+    
+    public ArrayList<Meals> getMealBaseOnMenu(int menuID) {
+        ArrayList<Meals> list=new ArrayList<>();
+        Connection cn=null;
+        try{
+            cn=DBUtil.makeConnection();
+            if(cn!=null){
+                String sql = "SELECT MealID, MenuID, MealName, Description, Type, Recipe, Ingredients, [Image url]\n"
+                        + "FROM [dbo].[Meals]\n"
+                        + "WHERE MenuID=?";
+                PreparedStatement pst=cn.prepareStatement(sql);
+                pst.setInt(1, menuID);
+                ResultSet rs=pst.executeQuery();
+                if(rs!=null){
+                    while(rs.next()){
+                        int mealid=rs.getInt("MealID");
+                        String name=rs.getString("MealName");
+                        String des=rs.getString("Description");
+                        String type=rs.getString("Type");
+                        String recipe=rs.getString("Recipe");
+                        String ingre=rs.getString("Ingredients");
+                        String img=rs.getString("Image url");
+                        Meals meal=new Meals(mealid, menuID, name, des, type, recipe, ingre, img);
+                        list.add(meal);
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if(cn!=null) cn.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return list;
     }
     
     public int addMealBaseOnMenu(int menuid, String mealName, String mealDes, String type, String recipe, String ingredient) {
@@ -149,7 +187,7 @@ public class MealDAO {
         return result;
     }
     
-    public int delMenu(int mealID) {
+    public int delMeal(int mealID) {
         Connection cn = null;
         int result = 0;
         try {
