@@ -10,6 +10,7 @@ import dbo.Menu;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,7 +31,7 @@ public class GetMenuServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String SUCCESS = "Home.jsp";
+    private static final String SUCCESS = "MainController";
     private static final String ERROR = "accessDenied.html";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -43,7 +44,8 @@ public class GetMenuServlet extends HttpServlet {
                 MenuDAO d = new MenuDAO();
                 ArrayList<Menu> list = d.getAllMenu();
                 if (list != null && list.size() > 0) {
-                    request.setAttribute("menulist", list);
+                    ServletContext context = getServletContext();
+                    context.setAttribute("menulist", list);
                     url = SUCCESS;
                 }
             } catch (Exception e) {
