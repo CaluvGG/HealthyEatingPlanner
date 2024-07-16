@@ -56,6 +56,9 @@ public class MainController extends HttpServlet {
     
     private static final String SEARCH = "search";
     private static final String SEARCH_SERVLET = "SearchMenuServlet";
+    
+    private static final String VIEWCART = "cart";
+    private static final String VIEWCART_PAGE = "View";
   
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
