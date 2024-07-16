@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Menu</title>
+        <title>Healthy Meals</title>
         <style><%@include file="WEB-INF/css/stylesheet.css"%></style>
         <script><%@include file="WEB-INF/js/js.js" %></script>
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
@@ -101,29 +101,23 @@
         </div>
 
         <c:choose>
-            <c:when test="${empty meallist}">
-                <p>No meal available</p>
+            <c:when test="${empty searchlist}">
+                <p>There no menu with this name.</p>
             </c:when>
             <c:otherwise>
-                <ul class="menum-list">
-                    <c:forEach var="meal" items="${meallist}">
-                        <div class="mealmenu">
-                            <div class="div1"><form action="addToCart" method="post">
-                                    <input type="hidden" name="mealID" value="${meal.mealID}" />
-                                    <button type="submit">ADD TO CART</button>
-                                </form>
+                <div class="menu-wrapper">
+                    <button class="scroll-btn left">&lt;</button>
+                    <div class="menu-container">
+                        <c:forEach var="menu" items="${searchlist}">
+                            <div class="menu-item">
+                                <a href="MainController?action=menu&menuid=${menu.menuID}" >
+                                    <img src="${menu.imgUrl}" width="100%" alt="${menu.menuName}">
+                                </a>
                             </div>
-                            <div class="div2"><img src="${meal.img}" alt="${meal.mealName}" /></div>
-                            <div class="div3">
-                                <p>${meal.mealName}</p>
-                                <p>${meal.type}</p>
-                            </div>
-                            <div class="div4">${meal.mealDescription}</div>
-                            <div class="div5">${meal.recipe}</div>
-                            <div class="div6">${meal.ingredients}</div>
-                        </div>
-                    </c:forEach>
-                </ul>
+                        </c:forEach>
+                    </div>
+                    <button class="scroll-btn right">&gt;</button>
+                </div>
             </c:otherwise>
         </c:choose>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>

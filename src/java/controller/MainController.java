@@ -6,7 +6,6 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -54,6 +53,9 @@ public class MainController extends HttpServlet {
     
     private static final String MENU = "menu";
     private static final String MENU_SERV = "GetMealFromMenuServlet";
+    
+    private static final String SEARCH = "search";
+    private static final String SEARCH_SERVLET = "SearchMenuServlet";
   
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -71,6 +73,7 @@ public class MainController extends HttpServlet {
 //            else if (ORDER.equalsIgnoreCase(action))url = ORDER_SERV;
             else if (MENU.equalsIgnoreCase(action))url = MENU_SERV + "?menuid=" + request.getParameter("menuid");
             else if (CONFIRMPASS.equalsIgnoreCase(action)) url=CONFIRMPASS_SERV;
+            else if (SEARCH.equalsIgnoreCase(action))url = SEARCH_SERVLET;
 
         } catch (Exception e) {
             log("Error at MainController: " + e.toString());
