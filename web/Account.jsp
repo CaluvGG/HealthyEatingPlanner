@@ -106,22 +106,19 @@
                                 <input type="text" name="text_address" required value="${IsLogged.address}" placeholder="Address details">
                             </div>
 
-                            <div class="box_text">
-                                <label>Password: </label>
-                                <input type="password" id="password" class="pass_key" disabled value="${IsLogged.password}" placeholder="Password">
-<!--                                <span class="show" onclick="togglePassword()">
-                                    <img src="icons/eye.png" alt="SHOW">
-                                </span>-->
-                            </div>
-
                             <!--Set role for use-->
                             <input type="hidden" name="text_role" value="1" />
 
                         </c:if>
+                        
+                        <!--Update Confirm-->
+                        
+                        <!--==========-->
                         <div class="field">
                             <input type="hidden" name="action" value="update_acc" />
                             <input type="submit" name="" value="Update" />
                         </div>
+                        <!--==========-->    
                         <div class="field">
                             <input type="hidden" name="action" value="logout" />
                             <input type="submit" name="" value="Log Out" />
