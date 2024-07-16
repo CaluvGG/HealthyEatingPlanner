@@ -87,7 +87,6 @@
             </nav>
         </div>
 
-        <!--            <div class="row" style="background-color: rgb(224, 167, 94);">-->
         <div class="Card_container" style="margin-top: 2em">
             <form action="MainController" method="POST" class="form_card">
                 <c:if test="${not empty IsLogged}">
@@ -130,10 +129,10 @@
 
                 </div>
                 <!--==========-->
-                <!--                        <div class="field">
-                                            <input type="hidden" name="action" value="update_acc" />
-                                            <input type="submit" name="" value="Update" />
-                                        </div>-->
+                <!--                <div class="field">
+                                    <input type="hidden" name="action" value="update_acc" />
+                                    <input type="submit" name="" value="Update" />
+                                </div>-->
                 <!--==========-->    
                 <div class="field">
                     <input type="hidden" name="action" value="logout" />
@@ -152,40 +151,59 @@
                 </c:if>
             </form>
         </div>
-        <!--</div>-->
+
         <!-- Modal -->
-        <div
-            class="modal fade"
-            id="exampleModal"
-            tabindex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-            >
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                        <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                            ></button>
-                    </div>
-                    <div class="modal-body">...</div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary">
-                            Save changes</button>
-                        <button
-                            type="button"
-                            class="btn btn-secondary"
-                            data-bs-dismiss="modal"
-                            >
-                            Cancle
-                        </button>
+        <form action="MainController" method="POST">
+            <div
+                class="modal fade"
+                id="exampleModal"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+                >
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm your password</h1>
+                            <button
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                                ></button>
+                        </div>
+                        
+                        <div class="modal-body" 
+                             style="display: flex;justify-content: center;">
+                            <div class="box_text">
+                                <input type="password" id="password" class="pass_key" required placeholder="Password">
+                                <span class="show" onclick="togglePassword()">
+                                    <img src="icons/eye.png" alt="SHOW">
+                                </span>
+                            </div>
+                            <div class="box_text">
+                                <input type="password" id="confirmPassword" name="text_password" placeholder="Confirm Password">
+                            </div>
+
+                            <div id="passwordError" style="color: red;display: none;"></div> <!-- Thông báo lỗi -->
+                        </div>
+
+                        <div class="modal-footer">
+                            <div class="field" style="width: 20%;">
+                                <input type="hidden" name="action" value="update_acc" />
+                                <input type="submit" name="" value="Update" />
+                            </div>
+                            <div class="field"
+                                 style="width: 20%;">
+                                <button 
+                                    data-bs-dismiss="modal">
+                                    Cancel</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>  
+            </div>  
+        </form>
+
     </body>
 </html>

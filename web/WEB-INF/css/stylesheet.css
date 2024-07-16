@@ -250,6 +250,17 @@
     cursor: pointer;
     transition: background-color 0.3s;
 }
+.field button{
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: rgba(97, 88, 107, 0.753); /* Màu nền là màu tím đậm */
+    color: white; /* Màu chữ là trắng */
+    font-size: 16px;
+    cursor: pointer; /* Con trỏ chuột là hình bàn tay */
+    transition: background-color 0.3s; /* Hiệu ứng chuyển đổi màu nền */
+}
 
 .field:hover {
     border-color: #c96e6e;
