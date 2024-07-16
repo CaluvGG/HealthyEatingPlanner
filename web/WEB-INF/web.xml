@@ -121,13 +121,12 @@
         <url-pattern>/GetMealFromMenuServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-<<<<<<< HEAD
         <servlet-name>SearchMenuServlet</servlet-name>
         <url-pattern>/SearchMenuServlet</url-pattern>
-=======
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ConfirmUserServlet</servlet-name>
         <url-pattern>/ConfirmUserServlet</url-pattern>
->>>>>>> 8e41e5d6b2dddc8a0b906005cd8499d215d7cab3
     </servlet-mapping>
     <session-config>
         <session-timeout>
