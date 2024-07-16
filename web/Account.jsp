@@ -13,6 +13,16 @@
         <style><%@include file="WEB-INF/css/stylesheet.css"%></style>
         <script><%@include file="WEB-INF/js/js.js" %></script>
         <title>Account</title>
+        <!--Bootstrap-->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            />
+        <link
+            href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"
+            rel="stylesheet"
+            />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body id="body" class="container-fluid">
         <!--Check is logged in ?-->
@@ -28,7 +38,7 @@
             </div>
         </c:if>
         <!--navigate bar-->
-        <div id="nav row">
+        <div id="nav">
             <nav id="navbar">
 
                 <ul class="nav-items-left">
@@ -76,68 +86,106 @@
                 </ul>
             </nav>
         </div>
-        <div class="row container">
-            <div class="row" style="background-color: rgb(224, 167, 94);">
-                <div class="Card_container" style="margin-top: 2em">
-                    <form action="MainController" method="POST" class="form_card">
-                        <c:if test="${not empty IsLogged}">
-                            <input type="hidden" name="text_id" required value="${IsLogged.userID}" >
-                            <div class="box_text">
-                                <label>First name:</label>
-                                <input type="text" name="text_firstname" required value="${IsLogged.firstName}" placeholder="First name">
-                            </div>
-                            <div class="box_text">
-                                <label>Last name:</label>
-                                <input type="text" name="text_lastname" required value="${IsLogged.lastName}"placeholder="Last name">
-                            </div>
 
-                            <div class="box_text">
-                                <label>Email: </label>
-                                <input type="email" name="text_email" required value="${IsLogged.email}" placeholder="Email">
-                            </div>
+        <!--            <div class="row" style="background-color: rgb(224, 167, 94);">-->
+        <div class="Card_container" style="margin-top: 2em">
+            <form action="MainController" method="POST" class="form_card">
+                <c:if test="${not empty IsLogged}">
+                    <input type="hidden" name="text_id" required value="${IsLogged.userID}" >
+                    <div class="box_text">
+                        <label>First name:</label>
+                        <input type="text" name="text_firstname" required value="${IsLogged.firstName}" placeholder="First name">
+                    </div>
+                    <div class="box_text">
+                        <label>Last name:</label>
+                        <input type="text" name="text_lastname" required value="${IsLogged.lastName}"placeholder="Last name">
+                    </div>
 
-                            <div class="box_text">
-                                <label>Phone: </label>
-                                <input type="text" name="text_phone" required value="${IsLogged.phone}" placeholder="Phone number">
-                            </div>
+                    <div class="box_text">
+                        <label>Email: </label>
+                        <input type="email" name="text_email" required value="${IsLogged.email}" placeholder="Email">
+                    </div>
 
-                            <div class="box_text">
-                                <label>Address: </label>
-                                <input type="text" name="text_address" required value="${IsLogged.address}" placeholder="Address details">
-                            </div>
+                    <div class="box_text">
+                        <label>Phone: </label>
+                        <input type="text" name="text_phone" required value="${IsLogged.phone}" placeholder="Phone number">
+                    </div>
 
-                            <!--Set role for use-->
-                            <input type="hidden" name="text_role" value="1" />
+                    <div class="box_text">
+                        <label>Address: </label>
+                        <input type="text" name="text_address" required value="${IsLogged.address}" placeholder="Address details">
+                    </div>
 
-                        </c:if>
-                        
-                        <!--Update Confirm-->
-                        
-                        <!--==========-->
-                        <div class="field">
-                            <input type="hidden" name="action" value="update_acc" />
-                            <input type="submit" name="" value="Update" />
-                        </div>
-                        <!--==========-->    
-                        <div class="field">
-                            <input type="hidden" name="action" value="logout" />
-                            <input type="submit" name="" value="Log Out" />
-                        </div>
-                        <div class="field" style="background-color: #ff6668; border-radius: 10%;">
-                            <input type="hidden" name="action" value="delete_acc" />
-                            <input type="submit" value="Delete account" />
-                        </div>
-                        <!--Error Email dublicate-->
-                        <c:if test="${not empty requestScope.DUBLICATE}">
-                            <div style="color: red; position: absolute; bottom: 4.3em;left: 7.5em;" id="erro_msg">
-                                ${requestScope.DUBLICATE}
-                            </div>
-                            <c:remove var="DUBLICATE" scope="request"/>
-                        </c:if>
-                    </form>
+                    <!--Set role for use-->
+                    <input type="hidden" name="text_role" value="1" />
+
+                </c:if>
+
+                <!--Update Confirm-->
+                <div class="field">
+                    <input type="button"
+                           data-bs-toggle="modal"
+                           data-bs-target="#exampleModal" 
+                           value="Launch modal">
+
                 </div>
-
-            </div>
+                <!--==========-->
+                <!--                        <div class="field">
+                                            <input type="hidden" name="action" value="update_acc" />
+                                            <input type="submit" name="" value="Update" />
+                                        </div>-->
+                <!--==========-->    
+                <div class="field">
+                    <input type="hidden" name="action" value="logout" />
+                    <input type="submit" name="" value="Log Out" />
+                </div>
+                <div class="field" style="background-color: #ff6668; border-radius: 10%;">
+                    <input type="hidden" name="action" value="delete_acc" />
+                    <input type="submit" value="Delete account" />
+                </div>
+                <!--Error Email dublicate-->
+                <c:if test="${not empty requestScope.DUBLICATE}">
+                    <div style="color: red; position: absolute; bottom: 4.3em;left: 7.5em;" id="erro_msg">
+                        ${requestScope.DUBLICATE}
+                    </div>
+                    <c:remove var="DUBLICATE" scope="request"/>
+                </c:if>
+            </form>
         </div>
+        <!--</div>-->
+        <!-- Modal -->
+        <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+            >
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                            ></button>
+                    </div>
+                    <div class="modal-body">...</div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary">
+                            Save changes</button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                            >
+                            Cancle
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>  
     </body>
 </html>
