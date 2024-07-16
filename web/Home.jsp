@@ -100,22 +100,25 @@
             </nav>
         </div>
 
-        <c:if test="${empty menulist}">
-            <p>No menu available</p>
-        </c:if>
-        <div class="menu-wrapper">
-            <div class="menu-container">
-                <button class="scroll-btn left">&lt;</button>
-                <c:forEach var="menu" items="${menulist}">
-                    <div class="menu-item">
-                        <a href="MainController?action=" >
-                            <img src="${menu.imgUrl}" width="100%" alt="${menu.menuName}">
-                        </a>
+        <c:choose>
+            <c:when test="${empty applicationScope.menulist}">
+                <p>No menu available</p>
+            </c:when>
+            <c:otherwise>
+                <div class="menu-wrapper">
+                    <button class="scroll-btn left">&lt;</button>
+                    <div class="menu-container">
+                        <c:forEach var="menu" items="${applicationScope.menulist}">
+                            <div class="menu-item">
+                                <img src="${menu.imgUrl}" width="100%" alt="${menu.menuName}">
+                                <h3><a href="" >${menu.menuName}</a></h3>
+                            </div>
+                        </c:forEach>
                     </div>
-                </c:forEach>
-            </div>
-            <button class="scroll-btn right">&gt;</button>
-        </div>
+                    <button class="scroll-btn right">&gt;</button>
+                </div>
+            </c:otherwise>
+        </c:choose>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
