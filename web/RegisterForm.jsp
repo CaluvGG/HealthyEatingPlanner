@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="box_text">
-                    <input type="text" name="text_email" required placeholder="Email">
+                    <input type="email" name="text_email" required placeholder="Email">
                 </div>
 
                 <div class="box_text">

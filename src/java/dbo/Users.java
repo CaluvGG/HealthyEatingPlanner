@@ -41,6 +41,16 @@ public class Users {
         this.Address = address;
         this.Role = role;
     }
+    public Users(int id, String firstname, String lastname, String email, String phone, String address, int role, String Password) {
+        this.UserID = id;
+        this.FirstName = firstname;
+        this.LastName = lastname;
+        this.Email = email;
+        this.Phone = phone;
+        this.Address = address;
+        this.Role = role;
+        this.Password = Password;
+    }
 
     public String getPassword() {
         return Password;

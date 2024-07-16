@@ -5,18 +5,21 @@
  */
 package controller;
 
+import dao.UserDAO;
+import dbo.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author MyPC
  */
-public class MainController extends HttpServlet {
+public class UpdateAccServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -27,43 +30,46 @@ public class MainController extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String ERROR = "accessDenied.html";
-    private static final String HOMEPAGE = "Home.jsp";
-    
-    private static final String LOGIN = "login";
-    private static final String LOGIN_SERV = "LoginServlet";
-    
-    private static final String REGISTER = "register";
-    private static final String REGISTER_SERV = "RegisterServlet";
-    
-    private static final String LOGOUT = "logout";
-    private static final String LOGOUT_SERV = "LogoutServlet";
-    
-    private static final String UPDATE_ACC = "update_acc";
-    private static final String UPDATE_ACC_SERV = "UpdateAccServlet";
-    
-    private static final String DELETE_ACC = "delete_acct";
-    private static final String DELETE_ACC_SERV = "DeleteServlet";
-  
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        try {
-            String action = request.getParameter("action");
-            if(action==null||action.isEmpty()) url = HOMEPAGE;
-            else if (LOGIN.equalsIgnoreCase(action))url = LOGIN_SERV;
-            else if (LOGOUT.equalsIgnoreCase(action))url = LOGOUT_SERV;
-            else if (REGISTER.equalsIgnoreCase(action))url = REGISTER_SERV;
-            else if (DELETE_ACC.equalsIgnoreCase(action))url = DELETE_ACC_SERV; 
-            else if (UPDATE_ACC.equalsIgnoreCase(action))url = UPDATE_ACC_SERV;
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            int id_user = Integer.parseInt(request.getParameter("text_id"));
+            String fname_user = request.getParameter("text_firstname");
+            String lname_user = request.getParameter("text_lastname");
+            String email_user = request.getParameter("text_email");
+            String phone_user = request.getParameter("text_phone");
+            String address_user = request.getParameter("text_address");
+            int role_user = Integer.parseInt(request.getParameter("text_role"));
 
-        } catch (Exception e) {
-            log("Error at MainController: " + e.toString());
-        } finally {
-            if(url.equalsIgnoreCase(HOMEPAGE))response.sendRedirect(HOMEPAGE);
-            else request.getRequestDispatcher(url).forward(request, response);
+            UserDAO d = new UserDAO();
+            Users acc_sample = d.getUser(id_user);
+            
+            if (acc_sample.getEmail().equalsIgnoreCase(email_user)) {
+                int result = d.UpdateUser(fname_user, lname_user, email_user, phone_user, address_user, role_user, id_user);
+                if (result > 0) {
+                    HttpSession session=request.getSession(false);
+                    session.setAttribute("Login_user", d.getUser(id_user));
+                    response.sendRedirect("Account.jsp");
+                } else {
+                    response.sendRedirect("accessDenied.html");
+                }
+            } else {
+                Users acc = d.getUserEmail(email_user);
+                if (acc == null) {
+                    int result = d.UpdateUser(fname_user, lname_user, email_user, phone_user, address_user, role_user, id_user);
+                    if (result > 0) {
+                        request.getRequestDispatcher("Account.jsp").forward(request, response);
+                    } else {
+                        response.sendRedirect("accessDenied.html");
+                    }
+                } else {
+                    String msg = "Duplicate Emails";
+                    request.setAttribute("DUBLICATE", msg);
+                    request.getRequestDispatcher("Account.jsp").forward(request, response);
+                }
+            }
         }
     }
 

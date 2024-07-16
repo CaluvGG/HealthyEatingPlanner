@@ -60,7 +60,7 @@ public class UserDAO {
         try {
             cn=DBUtil.makeConnection();
             if(cn!=null){
-                String sql = "SELECT UserID, Email, LastName, Phone, Address, Role, Password\n" +
+                String sql = "SELECT UserID, Email,FirstName, LastName, Phone, Address, Role, Password\n" +
                     "FROM Users\n" +
                     "WHERE (Email = ? OR Phone = ?) AND Password = ?";
                 PreparedStatement pst = cn.prepareStatement(sql);
@@ -71,7 +71,8 @@ public class UserDAO {
                 if(rst!=null && rst.next()){
                     if(acc_name.contains("@")){
                         user = new Users(
-                            rst.getInt("UserID"), 
+                            rst.getInt("UserID"),
+                            rst.getString("FirstName"),
                             rst.getString("LastName"),
                             acc_name,
                             rst.getString("Phone"), 
@@ -81,7 +82,8 @@ public class UserDAO {
                         );
                     }else{
                         user = new Users(
-                            rst.getInt("UserID"), 
+                            rst.getInt("UserID"),
+                            rst.getString("FirstName"),
                             rst.getString("LastName"),
                             rst.getString("Email"),
                             acc_name,
@@ -177,7 +179,7 @@ public class UserDAO {
                         + "WHERE [UserID]=?";
                 PreparedStatement pst=cn.prepareStatement(sql);
                 pst.setInt(1, userID);
-                ResultSet rs=pst.executeQuery(sql);
+                ResultSet rs=pst.executeQuery();
                 if(rs!=null){
                     while(rs.next()){
                         String fname=rs.getString("FirstName");
@@ -203,14 +205,14 @@ public class UserDAO {
         return user;
     }
     
-    public int UpdateUser(String fname, String lname, String email, String phone, String address, int role, String pass, int id){
+    public int UpdateUser(String fname, String lname, String email, String phone, String address, int role, int id){
         int rs=0;
         Connection cn=null;
         try{
             cn=DBUtil.makeConnection();
             if(cn!=null){
                 String sql = "UPDATE [dbo].[Users]\n"
-                        + "SET [FirstName]=?,[LastName]=?,[Email]=?,[Phone]=?,[Address]=?,[Role]=?,[Password]=?\n"
+                        + "SET [FirstName]=?,[LastName]=?,[Email]=?,[Phone]=?,[Address]=?,[Role]=?\n"
                         + "WHERE [UserID]=?";
                 PreparedStatement pst=cn.prepareStatement(sql);
                 pst.setString(1, fname);
@@ -219,8 +221,33 @@ public class UserDAO {
                 pst.setString(4, phone);
                 pst.setString(5, address);
                 pst.setInt(6, role);
-                pst.setString(7, pass);
-                pst.setInt(8, id);
+                pst.setInt(7, id);
+                rs=pst.executeUpdate();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if(cn!=null) cn.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return rs;
+    }
+    
+    public int UpdatePassUser(int id, String password){
+        int rs=0;
+        Connection cn=null;
+        try{
+            cn=DBUtil.makeConnection();
+            if(cn!=null){
+                String sql = "UPDATE [dbo].[Users]\n"
+                        + "SET [Password]=?\n"
+                        + "WHERE [UserID]=?";
+                PreparedStatement pst=cn.prepareStatement(sql);
+                pst.setString(1, password);
+                pst.setInt(2, id);
                 rs=pst.executeUpdate();
             }
         }catch (Exception e){

@@ -48,6 +48,10 @@
         <servlet-name>UserView</servlet-name>
         <servlet-class>View.UserView</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateAccServlet</servlet-name>
+        <servlet-class>controller.UpdateAccServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>UserView</servlet-name>
         <url-pattern>/UserView</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateAccServlet</servlet-name>
+        <url-pattern>/UpdateAccServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
