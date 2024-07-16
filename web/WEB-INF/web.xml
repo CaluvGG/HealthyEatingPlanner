@@ -60,6 +60,10 @@
         <servlet-name>GetMealFromMenuServlet</servlet-name>
         <servlet-class>controller.GetMealFromMenuServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchMenuServlet</servlet-name>
+        <servlet-class>controller.SearchMenuServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -111,6 +115,10 @@
     <servlet-mapping>
         <servlet-name>GetMealFromMenuServlet</servlet-name>
         <url-pattern>/GetMealFromMenuServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchMenuServlet</servlet-name>
+        <url-pattern>/SearchMenuServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

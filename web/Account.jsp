@@ -52,9 +52,9 @@
                 </ul>
 
                 <li class="nav-item search-container">
-                    <form class="search-form">
-                        <input type="search" id="search_bar" placeholder="Find your ideal menus">
-                        <button type="submit" id="search_button">Search</button>
+                    <form class="search-form" action="MainController">
+                        <input type="search" name="search" id="search_bar" placeholder="Find your ideal menu">
+                        <button type="submit" name="action" value="search" id="search_button">Search</button>
                     </form>
                 </li>
 

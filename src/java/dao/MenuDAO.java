@@ -51,24 +51,25 @@ public class MenuDAO {
         return list;
     }
     
-    public Menu getMenu(int menuID) {
-        Menu menu=null;
-        Connection cn=null;
-        try{
-            cn=DBUtil.makeConnection();
-            if(cn!=null){
+    public ArrayList<Menu> getMenu(String menuName) {
+        ArrayList<Menu> list = new ArrayList<>();
+        Connection cn = null;
+        try {
+            cn = DBUtil.makeConnection();
+            if (cn != null) {
                 String sql = "SELECT [MenuID],[MenuName],[Description],[img-url]\n"
                         + "FROM [dbo].[Menu]\n"
-                        + "WHERE [MenuID]=?";
-                PreparedStatement pst=cn.prepareStatement(sql);
-                pst.setInt(1, menuID);
-                ResultSet rs=pst.executeQuery(sql);
-                if(rs!=null){
-                    while(rs.next()){
+                        + "WHERE [MenuName] like ?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setString(1, "%" + menuName + "%");
+                ResultSet rs = pst.executeQuery();
+                if (rs != null) {
+                    while (rs.next()) {
+                        int id = rs.getInt("MenuID");
                         String name=rs.getString("MenuName");
-                        String des=rs.getString("Description");
-                        String img=rs.getString("img-url");
-                        menu=new Menu(menuID, name, des, img);
+                        String des = rs.getString("Description");
+                        String img = rs.getString("img-url");
+                        list.add(new Menu(id, name, des, img));
                     }
                 }
             }
@@ -81,7 +82,7 @@ public class MenuDAO {
                 e.printStackTrace();
             }
         }
-        return menu;
+        return list;
     }
     
     public int addMenu(String menuName, String menuDes) {
