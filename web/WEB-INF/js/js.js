@@ -88,3 +88,8 @@ function showPage(pageNumber) {
     });
     document.getElementById('page' + pageNumber).classList.add('active');
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    const menuContainer = document.querySelector('.menu-container');
+    // Example: Add buttons or other JS functionality if needed
+});
