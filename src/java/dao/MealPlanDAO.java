@@ -5,11 +5,13 @@
  */
 package dao;
 
+import dbo.MealPlanDetails;
 import dbo.MealPlans;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import mylib.DBUtil;
 
 /**
@@ -17,55 +19,49 @@ import mylib.DBUtil;
  * @author user
  */
 public class MealPlanDAO {
-    public MealPlans getplan(int planID) {
-        MealPlans plan=null;
-        Connection cn=null;
-        try{
-            cn=DBUtil.makeConnection();
-            if(cn!=null){
-                String sql = "SELECT [PlanID],[UserID],[PlanName],[StartDate],[EndDate]\n"
-                        + "FROM [dbo].[MealPlans]\n"
-                        + "WHERE [PlanID]=?";
-                PreparedStatement pst=cn.prepareStatement(sql);
-                pst.setInt(1, planID);
-                ResultSet rs=pst.executeQuery(sql);
-                if(rs!=null){
-                    while(rs.next()){
-                        int planid=rs.getInt("PlanID");
-                        int userid=rs.getInt("UserID");
-                        String name=rs.getString("PlanName");
-                        Date start=rs.getDate("StartDate");
-                        Date end=rs.getDate("EndDate");
-                        plan=new MealPlans(planid, userid, name, start, end);
-                    }
+    public ArrayList<MealPlans> getPersonalMealPlans(int userId) {
+        ArrayList<MealPlans> list = new ArrayList<>();
+        Connection cn = null;
+        try {
+            cn = DBUtil.makeConnection();
+            if (cn != null) {
+                String sql = "SELECT PlanID, PlanName, StartDate, EndDate FROM PersonalMealPlans WHERE UserID = ?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setInt(1, userId);
+                ResultSet rs = pst.executeQuery();
+                while (rs.next()) {
+                    int planId = rs.getInt("PlanID");
+                    String planName = rs.getString("PlanName");
+                    Date startDate = rs.getDate("StartDate");
+                    Date endDate = rs.getDate("EndDate");
+                    MealPlans plan = new MealPlans(planId, userId, planName, startDate, endDate);
+                    list.add(plan);
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            try{
-                if(cn!=null) cn.close();
-            }catch(Exception e){
+        } finally {
+            try {
+                if (cn != null) cn.close();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return plan;
+        return list;
     }
-    
-    public int addPlan(String userID, String name, Date start, Date end) {
+
+    public void createPersonalMealPlan(MealPlans plan) {
         Connection cn = null;
-        int result = 0;
         try {
             cn = DBUtil.makeConnection();
             if (cn != null) {
-                String sql = "INSERT INTO [dbo].[MealPlans] ([UserID],[PlanName],[StartDate],[EndDate])\n"
-                        + "VALUES (?,?,?,?)";
+                String sql = "INSERT INTO PersonalMealPlans (UserID, PlanName, StartDate, EndDate) VALUES (?, ?, ?, ?)";
                 PreparedStatement pst = cn.prepareStatement(sql);
-                pst.setString(1, userID);
-                pst.setString(2, name);
-                pst.setDate(3, start);
-                pst.setDate(4, end);
-                result = pst.executeUpdate();
+                pst.setInt(1, plan.getUserID());
+                pst.setString(2, plan.getPlanName());
+                pst.setDate(3, plan.getStartDate());
+                pst.setDate(4, plan.getEndDate());
+                pst.executeUpdate();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -76,20 +72,20 @@ public class MealPlanDAO {
                 e.printStackTrace();
             }
         }
-        return result;
     }
-    
-    public int delPlan(int planID) {
+
+    public void updatePersonalMealPlan(MealPlans plan) {
         Connection cn = null;
-        int result = 0;
         try {
             cn = DBUtil.makeConnection();
             if (cn != null) {
-                String sql = "DELETE FROM [dbo].[MealPlans]\n"
-                        + "WHERE [PlanID] = ?";
+                String sql = "UPDATE PersonalMealPlans SET PlanName = ?, StartDate = ?, EndDate = ? WHERE PlanID = ?";
                 PreparedStatement pst = cn.prepareStatement(sql);
-                pst.setInt(1, planID);
-                result = pst.executeUpdate();
+                pst.setString(1, plan.getPlanName());
+                pst.setDate(2, plan.getStartDate());
+                pst.setDate(3, plan.getEndDate());
+                pst.setInt(4, plan.getPlanID());
+                pst.executeUpdate();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,34 +96,100 @@ public class MealPlanDAO {
                 e.printStackTrace();
             }
         }
-        return result;
     }
-    
-    public int UpdatePlan(String name,Date start, Date end, int id){
-        int rs=0;
-        Connection cn=null;
-        try{
-            cn=DBUtil.makeConnection();
-            if(cn!=null){
-                String sql = "UPDATE [dbo].[MealPlans]\n"
-                        + "SET [PlanName]=?,[StartDate]=?,[EndDate]=?\n"
-                        + "WHERE [PlanID]=?";
-                PreparedStatement pst=cn.prepareStatement(sql);
-                pst.setString(1, name);
-                pst.setDate(2, start);
-                pst.setDate(3, end);
-                pst.setInt(4, id);
-                rs=pst.executeUpdate();
+
+    public void deletePersonalMealPlan(int planId) {
+        Connection cn = null;
+        try {
+            cn = DBUtil.makeConnection();
+            if (cn != null) {
+                String sql = "DELETE FROM PersonalMealPlans WHERE PlanID = ?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setInt(1, planId);
+                pst.executeUpdate();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
-            try{
-                if(cn!=null) cn.close();
-            }catch(Exception e){
+        } finally {
+            try {
+                if (cn != null) cn.close();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return rs;
+    }
+
+    public ArrayList<MealPlanDetails> getMealPlanDetails(int planId) {
+        ArrayList<MealPlanDetails> list = new ArrayList<>();
+        Connection cn = null;
+        try {
+            cn = DBUtil.makeConnection();
+            if (cn != null) {
+                String sql = "SELECT PlanDetailID, MealID, DayOfWeek FROM MealPlanDetails WHERE PlanID = ?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setInt(1, planId);
+                ResultSet rs = pst.executeQuery();
+                while (rs.next()) {
+                    int detailId = rs.getInt("PlanDetailID");
+                    int mealId = rs.getInt("MealID");
+                    String dayOfWeek = rs.getString("DayOfWeek");
+                    MealPlanDetails detail = new MealPlanDetails(detailId, planId, mealId, dayOfWeek);
+                    list.add(detail);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) cn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
+
+    public void addMealToPlan(MealPlanDetails detail) {
+        Connection cn = null;
+        try {
+            cn = DBUtil.makeConnection();
+            if (cn != null) {
+                String sql = "INSERT INTO MealPlanDetails (PlanID, MealID, DayOfWeek) VALUES (?, ?, ?)";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setInt(1, detail.getPlanID());
+                pst.setInt(2, detail.getMealID());
+                pst.setString(3, detail.getDayOfWeek());
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) cn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void removeMealFromPlan(int detailId) {
+        Connection cn = null;
+        try {
+            cn = DBUtil.makeConnection();
+            if (cn != null) {
+                String sql = "DELETE FROM MealPlanDetails WHERE PlanDetailID = ?";
+                PreparedStatement pst = cn.prepareStatement(sql);
+                pst.setInt(1, detailId);
+                pst.executeUpdate();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) cn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

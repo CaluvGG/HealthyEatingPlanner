@@ -100,25 +100,24 @@
             </nav>
         </div>
         <c:choose>
-            <c:when test="${empty orderlist}">
+            <c:when test="${empty detaillist}">
                 <p>No order has been made OR Login to see your orders.</p>
             </c:when>
             <c:otherwise>
-                <div class="orderlist">
-                        <div class="ord1">OrderID</div>
-                        <div class="ord2">Date</div>
-                        <div class="ord3">Detail</div>
+                <div class="detaillist">
+                        <div class="det1">Detail NO</div>
+                        <div class="det2">Meal ID</div>
+                        <div class="det3">Quantity</div>
+                        <div class="det4">Price</div>
                 </div>
-                <c:forEach var="order" items="${orderlist}">
-                    <div class="orderlist">
-                        <div class="ord1">${order.orderID}</div>
-                        <div class="ord2">${order.orderDate}</div>
-                        <div class="ord3">
-                            <form action="MainController" method="">
-                                <input type="hidden" name="detail" value="${order.orderID}"/>
-                                <button type="submit" name="action" value="detail">Detail</button>
-                            </form>
-                        </div>
+                <c:set var="count" value="0"/>
+                <c:forEach var="detail" items="${detaillist}">
+                    <c:set var="count" value="${count + 1}" />
+                    <div class="detaillist">
+                        <div class="det1">${count}</div>
+                        <div class="det2">${detail.mealID}</div>
+                        <div class="det3">${detail.quantity}</div>
+                        <div class="det4">${detail.price}</div>
                     </div>
                 </c:forEach>
             </c:otherwise>

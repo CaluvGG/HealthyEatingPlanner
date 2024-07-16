@@ -56,6 +56,12 @@ public class MainController extends HttpServlet {
     
     private static final String VIEWORDER = "vieworder";
     private static final String VIEWORDER_SERV = "ViewOrderServlet";
+    
+    private static final String DETAIL = "detail";
+    private static final String DETAIL_SERV = "GetOrderDetailServlet";
+    
+    private static final String MEAL = "meal";
+    private static final String MEAL_SERV = "GetMealServlet";
   
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -74,6 +80,7 @@ public class MainController extends HttpServlet {
             else if (CONFIRMPASS.equalsIgnoreCase(action)) url=CONFIRMPASS_SERV;
             else if (SEARCH.equalsIgnoreCase(action))url = SEARCH_SERV;
             else if (VIEWORDER.equalsIgnoreCase(action))url = VIEWORDER_SERV+ "?userid=" + request.getParameter("userid");
+            else if (DETAIL.equalsIgnoreCase(action))url = DETAIL_SERV;
 
         } catch (Exception e) {
             log("Error at MainController: " + e.toString());

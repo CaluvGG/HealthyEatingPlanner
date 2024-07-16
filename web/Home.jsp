@@ -51,7 +51,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="#">Meal</a>
+                        <a href="MainController?action=meal">Meal</a>
                     </li>
                 </ul>
 

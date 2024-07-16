@@ -69,14 +69,20 @@
         <servlet-class>controller.SearchMenuServlet</servlet-class>
     </servlet>
     <servlet>
-
         <servlet-name>ViewOrderServlet</servlet-name>
         <servlet-class>controller.ViewOrderServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddCartServlet</servlet-name>
         <servlet-class>controller.AddCartServlet</servlet-class>
-
+    </servlet>
+    <servlet>
+        <servlet-name>GetOrderDetailServlet</servlet-name>
+        <servlet-class>controller.GetOrderDetailServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetMealServlet</servlet-name>
+        <servlet-class>controller.GetMealServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -139,14 +145,20 @@
         <url-pattern>/ConfirmUserServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-
         <servlet-name>ViewOrderServlet</servlet-name>
         <url-pattern>/ViewOrderServlet</url-pattern>
-    </servlet-mapping> 
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddCartServlet</servlet-name>
         <url-pattern>/AddCartServlet</url-pattern>
-
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetOrderDetailServlet</servlet-name>
+        <url-pattern>/GetOrderDetailServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetMealServlet</servlet-name>
+        <url-pattern>/GetMealServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>
