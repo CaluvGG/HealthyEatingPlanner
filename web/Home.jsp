@@ -108,7 +108,7 @@
                 <button class="scroll-btn left">&lt;</button>
                 <c:forEach var="menu" items="${menulist}">
                     <div class="menu-item">
-                        <a href="MainController?action=" >
+                        <a href="MainController?action="  >
                             <img src="${menu.imgUrl}" width="100%" alt="${menu.menuName}">
                         </a>
                     </div>
