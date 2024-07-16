@@ -59,10 +59,10 @@
                 </li>
 
                 <ul class="nav-items-right">
-                    <!-- Icon for cart -->
+                    <!-- Icon for OrderHistory -->
                     <li class="nav-item">
                         <a href="MainController?action=vieworder&userid=${IsLogged.userID}">
-                            <img src="icons/shopping-cart.png" alt="Shopping Cart">
+                            <img src="icons/order-history.png" alt="Order history">
                         </a>
                     </li>
 
