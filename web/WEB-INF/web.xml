@@ -59,6 +59,10 @@
     <servlet>
         <servlet-name>GetMealFromMenuServlet</servlet-name>
         <servlet-class>controller.GetMealFromMenuServlet</servlet-class>
+    </servlet>   
+    <servlet> 
+        <servlet-name>ConfirmUserServlet</servlet-name>
+        <servlet-class>controller.ConfirmUserServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -111,6 +115,10 @@
     <servlet-mapping>
         <servlet-name>GetMealFromMenuServlet</servlet-name>
         <url-pattern>/GetMealFromMenuServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ConfirmUserServlet</servlet-name>
+        <url-pattern>/ConfirmUserServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
