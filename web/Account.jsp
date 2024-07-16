@@ -37,7 +37,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="#">Action</a>
+                        <a href="#">Meal</a>
                     </li>
                 </ul>
 

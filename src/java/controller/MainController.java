@@ -45,6 +45,12 @@ public class MainController extends HttpServlet {
     
     private static final String DELETE_ACC = "delete_acct";
     private static final String DELETE_ACC_SERV = "DeleteServlet";
+    
+    private static final String ORDER = "order";
+    private static final String ORDER_SERV = "GetOrderServlet";
+    
+    private static final String MENU = "menu";
+    private static final String MENU_SERV = "GetMealFromMenuServlet";
   
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -59,6 +65,8 @@ public class MainController extends HttpServlet {
             else if (REGISTER.equalsIgnoreCase(action))url = REGISTER_SERV;
             else if (DELETE_ACC.equalsIgnoreCase(action))url = DELETE_ACC_SERV; 
             else if (UPDATE_ACC.equalsIgnoreCase(action))url = UPDATE_ACC_SERV;
+            else if (ORDER.equalsIgnoreCase(action))url = ORDER_SERV;
+            else if (MENU.equalsIgnoreCase(action))url = MENU_SERV;
 
         } catch (Exception e) {
             log("Error at MainController: " + e.toString());
