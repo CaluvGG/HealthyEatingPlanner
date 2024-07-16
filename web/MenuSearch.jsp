@@ -45,7 +45,7 @@
         <div id="nav">
             <nav id="navbar">
 
-                <ul class="nav-items-left">
+                <ul class="nav-items-left"> 
                     <li class="nav-item">
                         <a href="MainController?action=home" value>Home</a>
                     </li>
@@ -65,7 +65,7 @@
                 <ul class="nav-items-right">
                     <!-- Icon for cart -->
                     <li class="nav-item">
-                        <a href="#">
+                        <a href="MainController?action=vieworder">
                             <img src="icons/shopping-cart.png" alt="Shopping Cart">
                         </a>
                     </li>
@@ -99,7 +99,7 @@
                 </ul>
             </nav>
         </div>
-
+        
         <c:choose>
             <c:when test="${empty searchlist}">
                 <p>There no menu with this name.</p>

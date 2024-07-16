@@ -65,7 +65,7 @@
                 <ul class="nav-items-right">
                     <!-- Icon for cart -->
                     <li class="nav-item">
-                        <a href="#">
+                        <a href="MainController?action=vieworder">
                             <img src="icons/shopping-cart.png" alt="Shopping Cart">
                         </a>
                     </li>
@@ -108,19 +108,21 @@
                 <ul class="menum-list">
                     <c:forEach var="meal" items="${meallist}">
                         <div class="mealmenu">
-                            <div class="div1"><form action="addToCart" method="post">
+                            <div class="meali1">
+                                <form action="addToCart" method="post">
                                     <input type="hidden" name="mealID" value="${meal.mealID}" />
                                     <button type="submit">ADD TO CART</button>
                                 </form>
                             </div>
-                            <div class="div2"><img src="${meal.img}" alt="${meal.mealName}" /></div>
-                            <div class="div3">
-                                <p>${meal.mealName}</p>
-                                <p>${meal.type}</p>
+                            <div class="meali2"><img src="${meal.img}" alt="${meal.mealName}" /></div>
+                            <div class="meali3">
+                                Meal: ${meal.mealName}<br/>
+                                Price:${meal.price}<br/>
+                                Type: ${meal.type}
                             </div>
-                            <div class="div4">${meal.mealDescription}</div>
-                            <div class="div5">${meal.recipe}</div>
-                            <div class="div6">${meal.ingredients}</div>
+                            <div class="meali4">Description: ${meal.mealDescription}</div>
+                            <div class="meali5">Recipe: ${meal.recipe}</div>
+                            <div class="meali6">Ingredients: ${meal.ingredients}</div>
                         </div>
                     </c:forEach>
                 </ul>

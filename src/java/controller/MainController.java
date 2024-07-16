@@ -48,14 +48,14 @@ public class MainController extends HttpServlet {
     private static final String DELETE_ACC = "delete_acct";
     private static final String DELETE_ACC_SERV = "DeleteServlet";
     
-//    private static final String ORDER = "order";
-//    private static final String ORDER_SERV = "";
-    
     private static final String MENU = "menu";
     private static final String MENU_SERV = "GetMealFromMenuServlet";
     
     private static final String SEARCH = "search";
-    private static final String SEARCH_SERVLET = "SearchMenuServlet";
+    private static final String SEARCH_SERV = "SearchMenuServlet";
+    
+    private static final String VIEWORDER = "vieworder";
+    private static final String VIEWORDER_SERV = "ViewOrderServlet";
   
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -70,10 +70,10 @@ public class MainController extends HttpServlet {
             else if (REGISTER.equalsIgnoreCase(action))url = REGISTER_SERV;
             else if (DELETE_ACC.equalsIgnoreCase(action))url = DELETE_ACC_SERV; 
             else if (UPDATE_ACC.equalsIgnoreCase(action))url = UPDATE_ACC_SERV;
-//            else if (ORDER.equalsIgnoreCase(action))url = ORDER_SERV;
             else if (MENU.equalsIgnoreCase(action))url = MENU_SERV + "?menuid=" + request.getParameter("menuid");
             else if (CONFIRMPASS.equalsIgnoreCase(action)) url=CONFIRMPASS_SERV;
-            else if (SEARCH.equalsIgnoreCase(action))url = SEARCH_SERVLET;
+            else if (SEARCH.equalsIgnoreCase(action))url = SEARCH_SERV;
+            else if (VIEWORDER.equalsIgnoreCase(action))url = VIEWORDER_SERV+ "?userid=" + request.getParameter("userid");
 
         } catch (Exception e) {
             log("Error at MainController: " + e.toString());

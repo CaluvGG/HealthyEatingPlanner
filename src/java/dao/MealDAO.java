@@ -24,7 +24,7 @@ public class MealDAO {
         try{
             cn=DBUtil.makeConnection();
             if(cn!=null){
-                String sql = "SELECT MealID, MenuID, MealName, Description, Type, Recipe, Ingredients, [Image url]\n"
+                String sql = "SELECT MealID, MenuID, MealName, Description, Type, Recipe, Ingredients, [Price], [Image url]\n"
                         + "FROM [dbo].[Meals]";
                 Statement st=cn.createStatement();
                 ResultSet rs=st.executeQuery(sql);
@@ -37,8 +37,9 @@ public class MealDAO {
                         String type=rs.getString("Type");
                         String recipe=rs.getString("Recipe");
                         String ingre=rs.getString("Ingredients");
+                        double price=rs.getDouble("Price");
                         String img=rs.getString("Image url");
-                        Meals meal=new Meals(mealid, menuid, name, des, type, recipe, ingre, img);
+                        Meals meal=new Meals(mealid, menuid, name, des, type, recipe, ingre, price, img);
                         list.add(meal);
                     }
                 }
@@ -61,7 +62,7 @@ public class MealDAO {
         try{
             cn=DBUtil.makeConnection();
             if(cn!=null){
-                String sql = "SELECT MealID, MenuID, MealName, Description, Type, Recipe, Ingredients, Image url\n"
+                String sql = "SELECT MealID, MenuID, MealName, Description, Type, Recipe, Ingredients, [Price], Image url\n"
                         + "FROM [dbo].[Meals]\n"
                         + "WHERE MealID=?";
                 PreparedStatement pst=cn.prepareStatement(sql);
@@ -75,8 +76,9 @@ public class MealDAO {
                         String type=rs.getString("Type");
                         String recipe=rs.getString("Recipe");
                         String ingre=rs.getString("Ingredients");
+                        double price=rs.getDouble("Price");
                         String img=rs.getString("Image url");
-                        meal=new Meals(mealID, menuid, name, des, type, recipe, ingre, img);
+                        meal=new Meals(mealID, menuid, name, des, type, recipe, ingre, price, img);
                     }
                 }
             }
@@ -98,7 +100,7 @@ public class MealDAO {
         try{
             cn=DBUtil.makeConnection();
             if(cn!=null){
-                String sql = "SELECT MealID, MenuID, MealName, Description, Type, Recipe, Ingredients, [Image url]\n"
+                String sql = "SELECT MealID, MenuID, MealName, Description, Type, Recipe, Ingredients, [Price], [Image url]\n"
                         + "FROM [dbo].[Meals]\n"
                         + "WHERE MenuID=?";
                 PreparedStatement pst=cn.prepareStatement(sql);
@@ -112,8 +114,9 @@ public class MealDAO {
                         String type=rs.getString("Type");
                         String recipe=rs.getString("Recipe");
                         String ingre=rs.getString("Ingredients");
+                        double price=rs.getDouble("Price");
                         String img=rs.getString("Image url");
-                        Meals meal=new Meals(mealid, menuID, name, des, type, recipe, ingre, img);
+                        Meals meal=new Meals(mealid, menuID, name, des, type, recipe, ingre, price, img);
                         list.add(meal);
                     }
                 }
@@ -130,21 +133,22 @@ public class MealDAO {
         return list;
     }
     
-    public int addMealBaseOnMenu(int menuid, String mealName, String mealDes, String type, String recipe, String ingredient) {
+    public int addMealBaseOnMenu(int menuid, String mealName, String mealDes, String type, String recipe, double price, String ingredient) {
         Connection cn = null;
         int result = 0;
         try {
             cn = DBUtil.makeConnection();
             if (cn != null) {
-                String sql = "INSERT INTO [dbo].[Meals] ([MenuID],[MealName],[Description],[Type],[Recipe],[Ingredients])\n"
-                        + "VALUES (?,?,?,?,?,?)";
+                String sql = "INSERT INTO [dbo].[Meals] ([MenuID],[MealName],[Description],[Type],[Recipe],[Price],[Ingredients])\n"
+                        + "VALUES (?,?,?,?,?,?,?)";
                 PreparedStatement pst = cn.prepareStatement(sql);
                 pst.setInt(1, menuid);
                 pst.setString(2, mealName);
                 pst.setString(3, mealDes);
                 pst.setString(4, type);
                 pst.setString(5, recipe);
-                pst.setString(6, ingredient);
+                pst.setDouble(6, price);
+                pst.setString(7, ingredient);
                 result = pst.executeUpdate();
             }
         } catch (Exception e) {
@@ -159,20 +163,21 @@ public class MealDAO {
         return result;
     }
     
-    public int addMeal(String mealName, String mealDes, String type, String recipe, String ingredient) {
+    public int addMeal(String mealName, String mealDes, String type, String recipe, double price, String ingredient) {
         Connection cn = null;
         int result = 0;
         try {
             cn = DBUtil.makeConnection();
             if (cn != null) {
-                String sql = "INSERT INTO [dbo].[Meals] ([MealName],[Description],[Type],[Recipe],[Ingredients])\n"
+                String sql = "INSERT INTO [dbo].[Meals] ([MealName],[Description],[Type],[Recipe],[Price],[Ingredients])\n"
                         + "VALUES (?,?,?,?,?)";
                 PreparedStatement pst = cn.prepareStatement(sql);
                 pst.setString(1, mealName);
                 pst.setString(2, mealDes);
                 pst.setString(3, type);
                 pst.setString(4, recipe);
-                pst.setString(5, ingredient);
+                pst.setDouble(5, price);
+                pst.setString(6, ingredient);
                 result = pst.executeUpdate();
             }
         } catch (Exception e) {
@@ -218,7 +223,7 @@ public class MealDAO {
             cn=DBUtil.makeConnection();
             if(cn!=null){
                 String sql = "UPDATE [dbo].[Meals]\n"
-                        + "SET [MenuID]=?,[MealName]=?,[Description]=?,[Type]=?,[Recipe]=?,[Ingredients]=?\n"
+                        + "SET [MenuID]=?,[MealName]=?,[Description]=?,[Type]=?,[Recipe]=?,[Price]=?,[Ingredients]=?\n"
                         + "WHERE [MealID]=?";
                 PreparedStatement pst=cn.prepareStatement(sql);
                 pst.setInt(1, menuID);

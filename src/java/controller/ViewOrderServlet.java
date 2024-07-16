@@ -5,8 +5,8 @@
  */
 package controller;
 
-import dao.MenuDAO;
-import dbo.Menu;
+import dao.OrderDAO;
+import dbo.Orders;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author user
  */
-public class SearchMenuServlet extends HttpServlet {
+public class ViewOrderServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,9 +30,9 @@ public class SearchMenuServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String SUCCESS = "MenuSearch.jsp";
-    private static final String ERROR = "MenuSearch.jsp";
-    
+    private static final String SUCCESS = "ViewCarts.jsp";
+    private static final String ERROR = "ViewCarts.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -40,11 +40,11 @@ public class SearchMenuServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String url = ERROR;
             try {
-                String name=request.getParameter("search");
-                MenuDAO d = new MenuDAO();
-                ArrayList<Menu> list = d.getMenu(name);
+                String id=request.getParameter("userid");
+                OrderDAO d = new OrderDAO();
+                ArrayList<Orders> list = d.getOrders(Integer.parseInt(id));
                 if (list != null && list.size() > 0) {
-                    request.setAttribute("searchlist", list);
+                    request.setAttribute("orderlist", list);
                     url = SUCCESS;
                 }
             } catch (Exception e) {

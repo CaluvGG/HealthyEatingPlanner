@@ -59,14 +59,18 @@
     <servlet>
         <servlet-name>GetMealFromMenuServlet</servlet-name>
         <servlet-class>controller.GetMealFromMenuServlet</servlet-class>
-    </servlet>   
-    <servlet> 
+    </servlet>
+    <servlet>
         <servlet-name>ConfirmUserServlet</servlet-name>
         <servlet-class>controller.ConfirmUserServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>SearchMenuServlet</servlet-name>
         <servlet-class>controller.SearchMenuServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewOrderServlet</servlet-name>
+        <servlet-class>controller.ViewOrderServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -127,6 +131,10 @@
     <servlet-mapping>
         <servlet-name>ConfirmUserServlet</servlet-name>
         <url-pattern>/ConfirmUserServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewOrderServlet</servlet-name>
+        <url-pattern>/ViewOrderServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
