@@ -74,7 +74,6 @@ public class AddCartServlet extends HttpServlet {
                     }
                 }
                 session.setAttribute("CartUser", List_cart);
-                request.getRequestDispatcher("GetItemsServlet").forward(request, response);
 
             } catch (Exception e) {
                 log("Error at:" + e.toString());
