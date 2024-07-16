@@ -26,16 +26,6 @@
     <body id="body" class="container-fluid">
         <!--Check is logged in ?-->
         <c:set var="IsLogged" value="${sessionScope.Login_user}" />
-        <!--Notifications-->
-        <c:if test="${not empty IsLogged}">
-            <!-- Log In Success -->
-            <div id="erro_msg">
-                <div class="notification" id="notifi_welcome">
-                    <i class="fi fi-br-check"></i>
-                    <span>Welcome ${IsLogged.email}</span>
-                </div>
-            </div>
-        </c:if>
         <!--navigate bar-->
         <div id="nav">
             <nav id="navbar">
@@ -85,6 +75,53 @@
                 </ul>
             </nav>
         </div>
-        
-    </body>
+        <h2>${IsLogged.lastName} cart</h2>
+        <c:choose>
+            <c:when test="${not empty CartUser}">
+                <table border="1">
+                    <tr>
+                        <th>Meal ID</th>
+                        <th>Meal Name</th>
+                        <th>Description</th>
+                        <th>Type</th>
+                        <th>Recipe</th>
+                        <th>Ingredients</th>
+                        <th>Image url</th>
+                    </tr>
+                    <c:set var="total" value="0" scope="page" />
+                    <c:forEach var="m" items="${List_cart}">
+                        <c:set var="meals" value="${m.mealID}" />
+                        <c:set var="quantity" value="${m.quantity}" />
+                        <c:set var="mealsTotal" value="${m.price * quantity}" />
+                        <c:set var="total" value="${total + itemTotal}" />
+                        <tr>
+                        <form action="ModifyCartServlet">
+                            <input type="hidden" name="mealID" value="${m.mealID}" />
+                            <td>${m.mealID}</td>
+                            <td>${m.mealName}</td>
+                            <td>${m.mealDescription}</td>
+                            <td>${m.type}</td>
+                            <td>${m.recipe}</td>
+                            <td>${m.ingredients}</td>
+                            <td><img src="${m.img}" alt="${m.mealName}" width="50" height="50" /></td>
+                            <td>
+                                <input type="number" value="${quantity}" min="1" max="15" name="txtquantity">
+                            </td>
+                            <td>
+                                <input type="submit" value="remove" name="action"> 
+                                <input type="submit" value="update" name="action"> 
+                            </td>
+                        </form> 
+                    </tr>
+                </c:forEach>
+            </table>
+            <h2>Total: <fmt:formatNumber value="${total}" type="currency" /></h2>
+        </c:when>
+        <c:otherwise>
+            <p>Your cart is empty.</p>
+        </c:otherwise>
+    </c:choose>
+
+
+</body>
 </html>

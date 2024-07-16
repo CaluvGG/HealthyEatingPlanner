@@ -61,9 +61,9 @@ public class MealDAO {
         try{
             cn=DBUtil.makeConnection();
             if(cn!=null){
-                String sql = "SELECT MealID, MenuID, MealName, Description, Type, Recipe, Ingredients, Image url\n"
-                        + "FROM [dbo].[Meals]\n"
-                        + "WHERE MealID=?";
+                String sql = "SELECT MealID, MenuID, MealName, Description, Type, Recipe, Ingredients, [Image url]\n" +
+"FROM [dbo].[Meals]\n" +
+"WHERE MealID= ?";
                 PreparedStatement pst=cn.prepareStatement(sql);
                 pst.setInt(1, mealID);
                 ResultSet rs=pst.executeQuery();

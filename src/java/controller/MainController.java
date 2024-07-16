@@ -57,8 +57,8 @@ public class MainController extends HttpServlet {
     private static final String SEARCH = "search";
     private static final String SEARCH_SERVLET = "SearchMenuServlet";
     
-    private static final String VIEWCART = "cart";
-    private static final String VIEWCART_PAGE = "View";
+    private static final String ADDCART = "AddCart";
+    private static final String ADDCART_SERV = "AddCartServlet";
   
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -77,6 +77,7 @@ public class MainController extends HttpServlet {
             else if (MENU.equalsIgnoreCase(action))url = MENU_SERV + "?menuid=" + request.getParameter("menuid");
             else if (CONFIRMPASS.equalsIgnoreCase(action)) url=CONFIRMPASS_SERV;
             else if (SEARCH.equalsIgnoreCase(action))url = SEARCH_SERVLET;
+            else if (ADDCART.equalsIgnoreCase(action)) url = ADDCART_SERV;
 
         } catch (Exception e) {
             log("Error at MainController: " + e.toString());

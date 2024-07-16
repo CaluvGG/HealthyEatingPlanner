@@ -108,8 +108,10 @@
                 <ul class="menum-list">
                     <c:forEach var="meal" items="${meallist}">
                         <div class="mealmenu">
-                            <div class="div1"><form action="addToCart" method="post">
+                            <div class="div1">
+                                <form action="MainController" method="post">
                                     <input type="hidden" name="mealID" value="${meal.mealID}" />
+                                    <input type="hidden" name="action" value="AddCart" />
                                     <button type="submit">ADD TO CART</button>
                                 </form>
                             </div>

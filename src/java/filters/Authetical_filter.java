@@ -116,7 +116,8 @@ public class Authetical_filter implements Filter {
             String path = httpReq.getRequestURI();
             if (       path.endsWith("Home.jsp")
                     || path.endsWith("LoginForm.jsp")
-                    || path.endsWith("RegisterForm.jsp")) {
+                    || path.endsWith("RegisterForm.jsp")
+                    || path.endsWith("ViewCarts.jsp")) {
                 System.out.println("dd");
                 chain.doFilter(request, response);
             } else {
