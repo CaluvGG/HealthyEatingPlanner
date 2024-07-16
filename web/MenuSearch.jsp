@@ -65,7 +65,7 @@
                 <ul class="nav-items-right">
                     <!-- Icon for cart -->
                     <li class="nav-item">
-                        <a href="MainController?action=vieworder">
+                        <a href="MainController?action=vieworder&userid=${IsLogged.userID}">
                             <img src="icons/shopping-cart.png" alt="Shopping Cart">
                         </a>
                     </li>
