@@ -1,38 +1,53 @@
 <%-- 
-    Document   : ViewCarts
-    Created on : Jul 15, 2024, 9:21:00 AM
+    Document   : main
+    Created on : Jul 5, 2024, 5:07:37 PM
     Author     : MyPC
 --%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Cart</title>
         <style><%@include file="WEB-INF/css/stylesheet.css"%></style>
         <script><%@include file="WEB-INF/js/js.js" %></script>
-        <title>View Carts</title>
-        <!--Bootstrap-->
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            />
-        <link
-            href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"
-            rel="stylesheet"
-            />
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     </head>
-    <body id="body" class="container-fluid">
+    <body id="body">
         <!--Check is logged in ?-->
         <c:set var="IsLogged" value="${sessionScope.Login_user}" />
+        <!--Notifications-->
+        <c:if test="${not empty IsLogged}">
+            <!-- Log In Success -->
+            <div id="erro_msg">
+                <div class="notification" id="notifi_welcome">
+                    <i class="fi fi-br-check"></i>
+                    <span>Welcome ${IsLogged.email}</span>
+                </div>
+            </div>
+        </c:if>
+        <c:if test="${not empty sessionScope.ERROR_AUTHENTY}">
+            <!-- Not Logged In -->
+            <div id="erro_msg">
+                <div class="notification" id="notifi_welcome">
+                    <i class="fi fi-br-check"></i>
+                    <span>Have to login first!!!</span>
+                </div>
+            </div>
+            <c:remove var="ERROR_AUTHENTY" scope="session"/>
+        </c:if>
+
+
+
         <!--navigate bar-->
         <div id="nav">
             <nav id="navbar">
 
                 <ul class="nav-items-left">
                     <li class="nav-item">
-                        <a href="MainController?action=home">Home</a>
+                        <a href="MainController?action=home" value>Home</a>
                     </li>
 
                     <li class="nav-item">
@@ -50,7 +65,7 @@
                 <ul class="nav-items-right">
                     <!-- Icon for cart -->
                     <li class="nav-item">
-                        <a href="#">
+                        <a href="MainController?action=vieworder&userid=${IsLogged.userID}">
                             <img src="icons/shopping-cart.png" alt="Shopping Cart">
                         </a>
                     </li>
@@ -63,11 +78,20 @@
                             </a>
                             <div class="opts">
                                 <ul class="opts_dt">
-                                    <!-- Logged in user options -->
-                                    <li class="logged-in-only"><a href="Account.jsp">Account</a></li>
-                                    <li class="logged-in-only"><a href="#">Settings</a></li>
-                                    <li class="logged-in-only"><a href="#">Order History</a></li>
-                                    <li class="logged-in-only"><a href="MainController?action=logout">Log Out</a></li>
+                                    <c:choose>
+                                        <c:when test="${not empty IsLogged}">
+                                            <!-- Logged in user options -->
+                                            <li class="logged-in-only"><a href="Account.jsp">Account</a></li>
+                                            <li class="logged-in-only"><a href="#">Settings</a></li>
+                                            <li class="logged-in-only"><a href="#">Order History</a></li>
+                                            <li class="logged-in-only"><a href="MainController?action=logout">Log Out</a></li>
+                                            </c:when>
+                                            <c:when test="${IsLoggedd == null}">
+                                            <!-- Logged out user options -->
+                                            <li class="logged-out-only"><a href="LoginForm.jsp">Login</a></li>
+                                            <li class="logged-out-only"><a href="RegisterForm.jsp">Register</a></li>
+                                            </c:when>
+                                        </c:choose>
                                 </ul>
                             </div>
                         </div>
@@ -75,53 +99,30 @@
                 </ul>
             </nav>
         </div>
-        <h2>${IsLogged.lastName} cart</h2>
         <c:choose>
-            <c:when test="${not empty CartUser}">
-                <table border="1">
-                    <tr>
-                        <th>Meal ID</th>
-                        <th>Meal Name</th>
-                        <th>Description</th>
-                        <th>Type</th>
-                        <th>Recipe</th>
-                        <th>Ingredients</th>
-                        <th>Image url</th>
-                    </tr>
-                    <c:set var="total" value="0" scope="page" />
-                    <c:forEach var="m" items="${List_cart}">
-                        <c:set var="meals" value="${m.mealID}" />
-                        <c:set var="quantity" value="${m.quantity}" />
-                        <c:set var="mealsTotal" value="${m.price * quantity}" />
-                        <c:set var="total" value="${total + itemTotal}" />
-                        <tr>
-                        <form action="ModifyCartServlet">
-                            <input type="hidden" name="mealID" value="${m.mealID}" />
-                            <td>${m.mealID}</td>
-                            <td>${m.mealName}</td>
-                            <td>${m.mealDescription}</td>
-                            <td>${m.type}</td>
-                            <td>${m.recipe}</td>
-                            <td>${m.ingredients}</td>
-                            <td><img src="${m.img}" alt="${m.mealName}" width="50" height="50" /></td>
-                            <td>
-                                <input type="number" value="${quantity}" min="1" max="15" name="txtquantity">
-                            </td>
-                            <td>
-                                <input type="submit" value="remove" name="action"> 
-                                <input type="submit" value="update" name="action"> 
-                            </td>
-                        </form> 
-                    </tr>
+            <c:when test="${empty orderlist}">
+                <p>No order has been made OR Login to see your orders.</p>
+            </c:when>
+            <c:otherwise>
+                <div class="orderlist">
+                        <div class="ord1">OrderID</div>
+                        <div class="ord2">Date</div>
+                        <div class="ord3">Detail</div>
+                </div>
+                <c:forEach var="order" items="${orderlist}">
+                    <div class="orderlist">
+                        <div class="ord1">${order.orderID}</div>
+                        <div class="ord2">${order.orderDate}</div>
+                        <div class="ord3">
+                            <form action="MainController" method="post">
+                                <input type="hidden" name="orderid" value="${order.orderID}" />
+                                <button type="submit">Detail</button>
+                            </form>
+                        </div>
+                    </div>
                 </c:forEach>
-            </table>
-            <h2>Total: <fmt:formatNumber value="${total}" type="currency" /></h2>
-        </c:when>
-        <c:otherwise>
-            <p>Your cart is empty.</p>
-        </c:otherwise>
-    </c:choose>
-
-
-</body>
+            </c:otherwise>
+        </c:choose>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+    </body>
 </html>

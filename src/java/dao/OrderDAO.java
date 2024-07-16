@@ -53,6 +53,40 @@ public class OrderDAO {
         return list;
     }
     
+    public ArrayList<Orders> getOrders(int userID) {
+        ArrayList<Orders> list=new ArrayList<>();
+        Connection cn=null;
+        try{
+            cn=DBUtil.makeConnection();
+            if(cn!=null){
+                String sql = "SELECT [OrderID],[UserID],[OrderDate],[TotalAmount]\n"
+                        + "FROM [dbo].[Orders]\n"
+                        + "WHERE [UserID]=?";
+                PreparedStatement pst=cn.prepareStatement(sql);
+                pst.setInt(1, userID);
+                ResultSet rs=pst.executeQuery();
+                if(rs!=null){
+                    while(rs.next()){
+                        int orderid=rs.getInt("OrderID");
+                        String date=rs.getString("OrderDate");
+                        int total=rs.getInt("TotalAmount");
+                        Orders order=new Orders(orderid, userID, date, total);
+                        list.add(order);
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if(cn!=null) cn.close();
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
+    
     public int addOrder(int userID, String date, int total) {
         Connection cn = null;
         int result = 0;
@@ -90,7 +124,7 @@ public class OrderDAO {
                         + "WHERE [OrderID]=?";
                 PreparedStatement pst=cn.prepareStatement(sql);
                 pst.setInt(1, ID);
-                ResultSet rs=pst.executeQuery(sql);
+                ResultSet rs=pst.executeQuery();
                 if(rs!=null){
                     while(rs.next()){
                         int userid=rs.getInt("UserID");

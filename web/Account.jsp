@@ -61,7 +61,7 @@
                 <ul class="nav-items-right">
                     <!-- Icon for cart -->
                     <li class="nav-item">
-                        <a href="ViewCarts.jsp">
+                        <a href="MainController?action=vieworder">
                             <img src="icons/shopping-cart.png" alt="Shopping Cart">
                         </a>
                     </li>
@@ -129,6 +129,10 @@
                 <div class="field">
                     <input type="hidden" name="action" value="logout" />
                     <input type="submit" name="" value="Log Out" />
+                </div>
+                <div class="field" style="background-color: #ff6668; border-radius: 10%;">
+                    <input type="hidden" name="action" value="delete_acc" />
+                    <input type="submit" value="Delete account" />
                 </div>
                 <!--Error Email dublicate-->
                 <c:if test="${not empty requestScope.DUBLICATE}">

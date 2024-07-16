@@ -51,7 +51,7 @@
                 <ul class="nav-items-right">
                     <!-- Icon for cart -->
                     <li class="nav-item">
-                        <a href="ViewCarts.jsp">
+                        <a href="MainController?action=vieworder">
                             <img src="icons/shopping-cart.png" alt="Shopping Cart">
                         </a>
                     </li>
