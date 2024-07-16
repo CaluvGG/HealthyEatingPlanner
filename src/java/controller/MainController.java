@@ -81,6 +81,7 @@ public class MainController extends HttpServlet {
             else if (SEARCH.equalsIgnoreCase(action))url = SEARCH_SERV;
             else if (VIEWORDER.equalsIgnoreCase(action))url = VIEWORDER_SERV+ "?userid=" + request.getParameter("userid");
             else if (DETAIL.equalsIgnoreCase(action))url = DETAIL_SERV;
+            else if (MEAL.equalsIgnoreCase(action))url = MEAL_SERV;
 
         } catch (Exception e) {
             log("Error at MainController: " + e.toString());

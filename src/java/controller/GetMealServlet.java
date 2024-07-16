@@ -5,8 +5,11 @@
  */
 package controller;
 
+import dao.MealDAO;
+import dbo.Meals;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,7 +40,12 @@ public class GetMealServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String url = ERROR;
             try {
-                
+                MealDAO d = new MealDAO();
+                ArrayList<Meals> list = d.getAllMeal();
+                if (list != null && list.size() > 0) {
+                    request.setAttribute("meallist", list);
+                    url = SUCCESS;
+                }
             } catch (Exception e) {
                 log("Error at:" + e.toString());
             } finally {
