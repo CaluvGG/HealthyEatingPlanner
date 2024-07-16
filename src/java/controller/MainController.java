@@ -28,6 +28,7 @@ public class MainController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     private static final String ERROR = "accessDenied.html";
+    private static final String HOME = "home";
     private static final String HOMEPAGE = "GetMenuServlet";
     
     private static final String LOGIN = "login";
@@ -52,7 +53,7 @@ public class MainController extends HttpServlet {
         String url = ERROR;
         try {
             String action = request.getParameter("action");
-            if(action==null||action.isEmpty()) url = HOMEPAGE;
+            if(action==null||action.isEmpty()||HOME.equalsIgnoreCase(action)) url = HOMEPAGE;
             else if (LOGIN.equalsIgnoreCase(action))url = LOGIN_SERV;
             else if (LOGOUT.equalsIgnoreCase(action))url = LOGOUT_SERV;
             else if (REGISTER.equalsIgnoreCase(action))url = REGISTER_SERV;

@@ -29,11 +29,17 @@ public class RegisterServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final String SUCCESS = "Home.jsp";
+    private static final String FAIL = "RegisterForm.jsp";
+    private static final String ERROR = "accessDenied.html";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            String url = ERROR;
+            try {
             String fname_user = request.getParameter("text_firstname");
             String lname_user = request.getParameter("text_lastname");
             String email_user = request.getParameter("text_email");
@@ -51,14 +57,19 @@ public class RegisterServlet extends HttpServlet {
             if (acc == null) {
                 int result = d.addUser(fname_user, lname_user, email_user, phone_user, address_user, Integer.parseInt(role_user), pass_user);
                 if (result > 0) {
-                    request.getRequestDispatcher("Home.jsp").forward(request, response);
+                    url=SUCCESS;
                 } else {
-                    response.sendRedirect("accessDenied.html");
+                    url=ERROR;
                 }
             } else {
                 String msg = "Duplicate Emails";
                 request.setAttribute("DUBLICATE", msg);
-                request.getRequestDispatcher("RegisterForm.jsp").forward(request, response);
+               url=FAIL;
+            } 
+            } catch (Exception e) {
+                log("Error at:" + e.toString());
+            } finally {
+                request.getRequestDispatcher(url).forward(request, response);
             }
         }
     }

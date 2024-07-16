@@ -30,11 +30,17 @@ public class UpdateAccServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final String SUCCESS = "Account.jsp";
+    private static final String ERROR = "Account.jsp";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            String url = ERROR;
+            try {
+                
             int id_user = Integer.parseInt(request.getParameter("text_id"));
             String fname_user = request.getParameter("text_firstname");
             String lname_user = request.getParameter("text_lastname");
@@ -51,7 +57,7 @@ public class UpdateAccServlet extends HttpServlet {
                 if (result > 0) {
                     HttpSession session=request.getSession(false);
                     session.setAttribute("Login_user", d.getUser(id_user));
-                    response.sendRedirect("Account.jsp");
+                    url=ERROR;
                 } else {
                     response.sendRedirect("accessDenied.html");
                 }
@@ -60,15 +66,20 @@ public class UpdateAccServlet extends HttpServlet {
                 if (acc == null) {
                     int result = d.UpdateUser(fname_user, lname_user, email_user, phone_user, address_user, role_user, id_user);
                     if (result > 0) {
-                        request.getRequestDispatcher("Account.jsp").forward(request, response);
+                        url=SUCCESS;
                     } else {
                         response.sendRedirect("accessDenied.html");
                     }
                 } else {
                     String msg = "Duplicate Emails";
                     request.setAttribute("DUBLICATE", msg);
-                    request.getRequestDispatcher("Account.jsp").forward(request, response);
+                    url=ERROR;
                 }
+            }
+            } catch (Exception e) {
+                log("Error at:" + e.toString());
+            } finally {
+                request.getRequestDispatcher(url).forward(request, response);
             }
         }
     }

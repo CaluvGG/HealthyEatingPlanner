@@ -47,11 +47,11 @@
 
                 <ul class="nav-items-left">
                     <li class="nav-item">
-                        <a href="Home.jsp">Home</a>
+                        <a href="MainController?action=home" value>Home</a>
                     </li>
 
                     <li class="nav-item">
-                        <a href="#">Action</a>
+                        <a href="#">Meal</a>
                     </li>
                 </ul>
 
@@ -108,8 +108,9 @@
                 <button class="scroll-btn left">&lt;</button>
                 <c:forEach var="menu" items="${menulist}">
                     <div class="menu-item">
-                        <img src="${menu.imgUrl}" width="100%" alt="${menu.menuName}">
-                        <h3><a href="" >${menu.menuName}</a></h3>
+                        <a href="MainController?action=" >
+                            <img src="${menu.imgUrl}" width="100%" alt="${menu.menuName}">
+                        </a>
                     </div>
                 </c:forEach>
             </div>

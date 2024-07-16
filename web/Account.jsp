@@ -33,7 +33,7 @@
 
                 <ul class="nav-items-left">
                     <li class="nav-item">
-                        <a href="Home.jsp">Home</a>
+                        <a href="MainController?action=home">Home</a>
                     </li>
 
                     <li class="nav-item">

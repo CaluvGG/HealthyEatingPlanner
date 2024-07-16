@@ -27,13 +27,23 @@ public class LogoutServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private static final String SUCCESS = "Home.jsp";
+    private static final String ERROR = "accessDenied.html";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            request.getSession().invalidate();
-            response.sendRedirect("Home.jsp");
+            String url = ERROR;
+            try {
+                request.getSession().invalidate();
+                url=SUCCESS;
+            } catch (Exception e) {
+                log("Error at:" + e.toString());
+            } finally {
+                response.sendRedirect(SUCCESS);
+            }
         }
     }
 

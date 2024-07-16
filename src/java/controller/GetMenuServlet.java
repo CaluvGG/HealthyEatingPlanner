@@ -22,26 +22,35 @@ import javax.servlet.http.HttpServletResponse;
 public class GetMenuServlet extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String SUCCES="Home.jsp";
-    private static final String ERROR="accessDenied.html";
+    private static final String SUCCESS = "Home.jsp";
+    private static final String ERROR = "accessDenied.html";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            MenuDAO d=new MenuDAO();
-            ArrayList<Menu> list=d.getAllMenu();
-            if(list!=null && list.size()>0){
-                request.setAttribute("menulist", list);
+            String url = ERROR;
+            try {
+                MenuDAO d = new MenuDAO();
+                ArrayList<Menu> list = d.getAllMenu();
+                if (list != null && list.size() > 0) {
+                    request.setAttribute("menulist", list);
+                    url = SUCCESS;
+                }
+            } catch (Exception e) {
+                log("Error at:" + e.toString());
+            } finally {
+                request.getRequestDispatcher(url).forward(request, response);
             }
-            request.getRequestDispatcher(SUCCES).forward(request, response);
         }
     }
 
