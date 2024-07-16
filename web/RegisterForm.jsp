@@ -58,7 +58,7 @@
 
                 <div class="box_text">
                     <input type="password" id="password" class="pass_key" required placeholder="Password">
-                    <span class="show" onclick="togglePassword()">
+                    <span class="show" onclick="togglePassword(this)">
                         <img src="icons/eye.png" alt="SHOW">
                     </span>
                 </div>

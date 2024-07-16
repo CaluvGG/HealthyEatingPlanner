@@ -154,7 +154,8 @@ public class UserDAO {
                             rst.getString("Email"),
                             rst.getString("Phone"),
                             rst.getString("Address"),
-                            rst.getInt("Role"));
+                            rst.getInt("Role"),
+                            rst.getString("Password"));
                 }
             }
         } catch (Exception e) {
@@ -205,14 +206,14 @@ public class UserDAO {
         return user;
     }
     
-    public int UpdateUser(String fname, String lname, String email, String phone, String address, int role, int id){
+    public int UpdateUser(String fname, String lname, String email, String phone, String address, int role, int id, String pass){
         int rs=0;
         Connection cn=null;
         try{
             cn=DBUtil.makeConnection();
             if(cn!=null){
                 String sql = "UPDATE [dbo].[Users]\n"
-                        + "SET [FirstName]=?,[LastName]=?,[Email]=?,[Phone]=?,[Address]=?,[Role]=?\n"
+                        + "SET [FirstName]=?,[LastName]=?,[Email]=?,[Phone]=?,[Address]=?,[Role]=?, [Password]=?\n"
                         + "WHERE [UserID]=?";
                 PreparedStatement pst=cn.prepareStatement(sql);
                 pst.setString(1, fname);
@@ -222,6 +223,7 @@ public class UserDAO {
                 pst.setString(5, address);
                 pst.setInt(6, role);
                 pst.setInt(7, id);
+                pst.setString(8, pass);
                 rs=pst.executeUpdate();
             }
         }catch (Exception e){

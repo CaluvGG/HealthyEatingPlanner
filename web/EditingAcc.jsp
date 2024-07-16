@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Account
-    Created on : Jul 15, 2024, 12:57:36 AM
+    Document   : EditingAcc
+    Created on : Jul 16, 2024, 9:19:51 PM
     Author     : MyPC
 --%>
 
@@ -27,16 +27,6 @@
     <body id="body" class="container-fluid">
         <!--Check is logged in ?-->
         <c:set var="IsLogged" value="${sessionScope.Login_user}" />
-        <!--Notifications-->
-        <c:if test="${not empty IsLogged}">
-            <!-- Log In Success -->
-            <div id="erro_msg">
-                <div class="notification" id="notifi_welcome">
-                    <i class="fi fi-br-check"></i>
-                    <span>Welcome ${IsLogged.email}</span>
-                </div>
-            </div>
-        </c:if>
         <!--navigate bar-->
         <div id="nav">
             <nav id="navbar">
@@ -87,9 +77,9 @@
             </nav>
         </div>
 
-        <div class="Card_container" style="margin-top: 2em">
-            <form action="MainController" method="POST" class="form_card">
-                <c:if test="${not empty IsLogged}">
+        <c:if test="${not empty requestScope.Able}">
+            <div class="Card_container" style="margin-top: 1em;">
+                <form action="MainController" method="POST" class="form_card">
                     <input type="hidden" name="text_id" required value="${IsLogged.userID}" >
                     <div class="box_text">
                         <label>First name:</label>
@@ -118,84 +108,35 @@
                     <!--Set role for use-->
                     <input type="hidden" name="text_role" value="1" />
 
-                </c:if>
-                <div class="field">
-                    <input type="button"
-                           data-bs-toggle="modal"
-                           data-bs-target="#exampleModal" 
-                           value="Edit">
-                </div>
-
-                <div class="field">
-                    <input type="hidden" name="action" value="logout" />
-                    <input type="submit" name="" value="Log Out" />
-                </div>
-                <div class="field" style="background-color: #ff6668; border-radius: 10%;">
-                    <input type="hidden" name="action" value="delete_acc" />
-                    <input type="submit" value="Delete account" />
-                </div>
-                <!--Error Email dublicate-->
-                <c:if test="${not empty requestScope.DUBLICATE}">
-                    <div style="color: red; position: absolute; bottom: 4.3em;left: 7.5em;" id="erro_msg">
-                        ${requestScope.DUBLICATE}
+                    <div class="box_text">
+                        <label>Password: </label>
+                        <input type="password" id="password" class="pass_key" required placeholder="Password">
+                        <span class="show" onclick="togglePassword(this)">
+                            <img src="icons/eye.png" alt="SHOW">
+                        </span>
                     </div>
-                    <c:remove var="DUBLICATE" scope="request"/>
-                </c:if>
-                <!--Error confirm pass-->
-                <c:if test="${not empty requestScope.NoAble}">
-                    <div style="color: red; position: absolute; bottom: 12.5em;" id="erro_msg">
-                        ${requestScope.NoAble}
+                    <div class="box_text">
+                        <label>Confirm password: </label>
+                        <input type="password" id="confirmPassword" name="text_password" placeholder="Confirm Password">
                     </div>
-                    <c:remove var="NoAble" scope="request"/>
-                </c:if>
-            </form>
-        </div>
 
-        <!-- Modal -->
-        <form action="MainController" method="POST">
-            <div
-                class="modal fade"
-                id="exampleModal"
-                tabindex="-1"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true"
-                >
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm your password</h1>
-                            <button
-                                type="button"
-                                class="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                                ></button>
-                        </div>
+                    <div id="passwordError" style="color: red;display: none;"></div> <!-- Thông báo lỗi -->
 
-                        <div class="modal-body" 
-                             style="display: flex;
-                             justify-content: center;
-                             flex-wrap: wrap;">
-                            <input type="hidden" name="email" value="${IsLogged.email}" >
-                            <div class="box_text">
-                                <label>Confirm password: </label>
-                                <input type="password" name="confirm" class="pass_key" placeholder="Password">
-                                <span class="show" onclick="togglePassword(this)">
-                                    <img src="icons/eye.png" alt="SHOW">
-                                </span>
-                            </div>
+                    <!--Error Email dublicate-->
+                    <c:if test="${not empty requestScope.DUBLICATE}">
+                        <div style="color: red; position: absolute; bottom: 4.3em;left: 7.5em;" id="erro_msg">
+                            ${requestScope.DUBLICATE}
                         </div>
-
-                        <div class="modal-footer">
-                            <div class="field" style="width: 20%;">
-                                <input type="hidden" name="action" value="givePermissionEdit" />
-                                <input type="submit" name="" value="Confirm" />
-                            </div>
-                        </div>
+                        <c:remove var="DUBLICATE" scope="request"/>
+                    </c:if>
+                    <div class="field">
+                        <input type="hidden" value="update_acc" name="action">
+                        <input type="submit" value="REGISTER">
                     </div>
-                </div>
-            </div>  
-        </form>
+                </form>
+            </div>
+        </c:if>
 
     </body>
 </html>
+

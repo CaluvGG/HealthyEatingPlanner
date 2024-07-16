@@ -30,7 +30,7 @@ public class ConfirmUserServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private static final String SUCCESS = "";
+    private static final String SUCCESS = "EditingAcc.jsp";
     private static final String ERROR = "Account.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -40,23 +40,18 @@ public class ConfirmUserServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String url = ERROR;
             try {
-                String password = request.getParameter("text_pass");
-                int id_user = Integer.parseInt(request.getParameter("txt_id"));
-                
-                if (password != null && id_user > 0) {
-                    UserDAO dao = new UserDAO();
-                    Users acc = dao.getUser(id_user);
-                    if (acc != null) {
-                        int res = dao.UpdatePassUser(id_user, password);
-                        if(res!=0){
-                            
-                            url = SUCCESS;
-                        }
-                        else{
-                            
-                            url = ERROR;
-                        }
-                    }
+                String email_acc = request.getParameter("email");
+                String confirmPass = request.getParameter("confirm");
+                UserDAO d = new UserDAO();
+                Users acc = d.getUserEmail(email_acc);
+                String old_pass = acc.getPassword();
+                if(old_pass.equalsIgnoreCase(confirmPass)){
+                    request.setAttribute("Able", "Able");
+                    url = SUCCESS;
+                }
+                else{
+                    request.setAttribute("NoAble", "Wrong password");
+                    url = ERROR;
                 }
             } catch (Exception e) {
                 log("Error at:" + e.toString());

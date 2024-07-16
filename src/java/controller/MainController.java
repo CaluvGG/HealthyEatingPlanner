@@ -43,6 +43,9 @@ public class MainController extends HttpServlet {
     private static final String UPDATE_ACC = "update_acc";
     private static final String UPDATE_ACC_SERV = "UpdateAccServlet";
     
+    private static final String CONFIRMPASS = "givePermissionEdit";
+    private static final String CONFIRMPASS_SERV = "ConfirmUserServlet";
+    
     private static final String DELETE_ACC = "delete_acct";
     private static final String DELETE_ACC_SERV = "DeleteServlet";
     
@@ -67,6 +70,7 @@ public class MainController extends HttpServlet {
             else if (UPDATE_ACC.equalsIgnoreCase(action))url = UPDATE_ACC_SERV;
 //            else if (ORDER.equalsIgnoreCase(action))url = ORDER_SERV;
             else if (MENU.equalsIgnoreCase(action))url = MENU_SERV + "?menuid=" + request.getParameter("menuid");
+            else if (CONFIRMPASS.equalsIgnoreCase(action)) url=CONFIRMPASS_SERV;
 
         } catch (Exception e) {
             log("Error at MainController: " + e.toString());

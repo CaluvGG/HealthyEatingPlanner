@@ -31,7 +31,7 @@ public class UpdateAccServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     private static final String SUCCESS = "Account.jsp";
-    private static final String ERROR = "Account.jsp";
+    private static final String ERROR = "EditingAcc.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -48,23 +48,24 @@ public class UpdateAccServlet extends HttpServlet {
             String phone_user = request.getParameter("text_phone");
             String address_user = request.getParameter("text_address");
             int role_user = Integer.parseInt(request.getParameter("text_role"));
+            String newPass = request.getParameter("text_password");
 
             UserDAO d = new UserDAO();
-            Users acc_sample = d.getUser(id_user);
+            Users acc_sample = d.getUserEmail(email_user);
             
             if (acc_sample.getEmail().equalsIgnoreCase(email_user)) {
-                int result = d.UpdateUser(fname_user, lname_user, email_user, phone_user, address_user, role_user, id_user);
+                int result = d.UpdateUser(fname_user, lname_user, acc_sample.getEmail(), phone_user, address_user, role_user, id_user,newPass);
                 if (result > 0) {
                     HttpSession session=request.getSession(false);
                     session.setAttribute("Login_user", d.getUser(id_user));
-                    url=ERROR;
+                    url=SUCCESS;
                 } else {
                     response.sendRedirect("accessDenied.html");
                 }
             } else {
                 Users acc = d.getUserEmail(email_user);
                 if (acc == null) {
-                    int result = d.UpdateUser(fname_user, lname_user, email_user, phone_user, address_user, role_user, id_user);
+                    int result = d.UpdateUser(fname_user, lname_user, email_user, phone_user, address_user, role_user, id_user,newPass);
                     if (result > 0) {
                         url=SUCCESS;
                     } else {

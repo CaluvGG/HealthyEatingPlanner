@@ -13,9 +13,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 //Toggle pass
-function togglePassword() {
-    const password = document.querySelector('.pass_key');
-    const showButton = document.querySelector('.show img');
+function togglePassword(child) {
+    const contain = child.parentNode;
+    const password = contain.querySelector('.pass_key');
+    const showButton = contain.querySelector('.show img');
     if (password.type === 'password') {
         password.type = 'text';
         showButton.src = 'icons/crossed-eye.png';
